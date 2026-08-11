@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
+import { createClient } from "@/lib/supabase/server";
+import { PresenceProvider } from "@/components/Presence/PresenceProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,7 +20,12 @@ export const metadata: Metadata = {
   description: "A modern rebuild of the MySpace social profile experience.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <html
       lang="en"
@@ -28,7 +35,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {user ? <PresenceProvider viewerId={user.id}>{children}</PresenceProvider> : children}
+      </body>
     </html>
   );
 }

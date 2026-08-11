@@ -1,13 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Profile } from "@/lib/types";
+import { PresenceDot } from "@/components/Presence/PresenceDot";
 import styles from "./ProfileCard.module.css";
-
-const STATUS_LABEL: Record<Profile["status"], string> = {
-  online: "Online",
-  away: "Away",
-  offline: "Offline",
-};
 
 export function ProfileCard({
   profile,
@@ -30,10 +25,7 @@ export function ProfileCard({
         ) : (
           <div className={styles.avatarFallback}>{initials}</div>
         )}
-        <span
-          className={`${styles.statusDot} ${styles[profile.status]}`}
-          title={STATUS_LABEL[profile.status]}
-        />
+        <PresenceDot userId={profile.id} fallbackStatus={profile.status} />
       </div>
 
       <div className={styles.identity}>
