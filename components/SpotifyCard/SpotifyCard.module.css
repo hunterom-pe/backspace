@@ -3,13 +3,6 @@
   border-radius: 10px;
 }
 
-.empty {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  padding: 1rem 0;
-  text-align: center;
-}
-
 .equalizer {
   display: flex;
   align-items: flex-end;

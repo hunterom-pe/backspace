@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { isGiphyUrl } from "@/lib/giphy";
+import { getFeedPosts, type FeedPost } from "@/lib/posts/queries";
 
 type ActionResult = { ok: true } | { ok: false; error: string };
 type ToggleLikeResult =
@@ -44,6 +45,19 @@ export async function createPost(
 
   revalidatePath("/", "layout");
   return { ok: true };
+}
+
+export async function loadMoreFeedPosts(cursor: string): Promise<FeedPost[]> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  return getFeedPosts(supabase, user.id, { cursor });
 }
 
 export async function deletePost(formData: FormData) {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card } from "@/components/Card/Card";
 import type { Profile } from "@/lib/types";
 import styles from "./Top8Card.module.css";
@@ -21,8 +22,13 @@ export function Top8Card({ slots }: { slots: (Profile | null)[] }) {
                 {i + 1}
               </span>
               {friend.avatar_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={friend.avatar_url} alt="" className={styles.avatar} />
+                <Image
+                  src={friend.avatar_url}
+                  alt=""
+                  width={200}
+                  height={200}
+                  className={styles.avatar}
+                />
               ) : (
                 <div className={styles.avatarFallback}>
                   {(friend.display_name ?? friend.username).slice(0, 2).toUpperCase()}

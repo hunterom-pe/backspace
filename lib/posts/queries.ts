@@ -15,9 +15,12 @@ export type FeedPost = {
   };
 };
 
+export const FEED_PAGE_SIZE = 20;
+
 export async function getFeedPosts(
   supabase: SupabaseClient,
   userId: string,
+  { cursor }: { cursor?: string } = {},
 ): Promise<FeedPost[]> {
   const { data: friendships } = await supabase
     .from("friendships")
@@ -30,12 +33,18 @@ export async function getFeedPosts(
   );
   const authorIds = Array.from(new Set([userId, ...friendIds]));
 
-  const { data: rows } = await supabase
+  let query = supabase
     .from("posts")
     .select("id, user_id, content, gif_url, like_count, created_at")
     .in("user_id", authorIds)
     .order("created_at", { ascending: false })
-    .limit(50);
+    .limit(FEED_PAGE_SIZE);
+
+  if (cursor) {
+    query = query.lt("created_at", cursor);
+  }
+
+  const { data: rows } = await query;
 
   const posts = rows ?? [];
   if (posts.length === 0) return [];

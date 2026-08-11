@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import type { Profile } from "@/lib/types";
 import { PresenceDot } from "@/components/Presence/PresenceDot";
 import { PencilIcon } from "@/components/icons";
+import { formatRelativeTime } from "@/lib/format-time";
 import styles from "./ProfileCard.module.css";
 
 export function ProfileCard({
@@ -19,13 +21,22 @@ export function ProfileCard({
 
   return (
     <section className={styles.card}>
-      <div className={styles.banner} aria-hidden="true" />
+      <div className={styles.banner} aria-hidden="true">
+        {profile.banner_url ? (
+          <Image src={profile.banner_url} alt="" fill className={styles.bannerImage} />
+        ) : null}
+      </div>
 
       <div className={styles.body}>
         <div className={styles.avatarWrap}>
           {profile.avatar_url ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={profile.avatar_url} alt={name} className={styles.avatar} />
+            <Image
+              src={profile.avatar_url}
+              alt={name}
+              width={176}
+              height={176}
+              className={styles.avatar}
+            />
           ) : (
             <div className={styles.avatarFallback}>{initials}</div>
           )}
@@ -45,6 +56,14 @@ export function ProfileCard({
         {profile.mood_status || isOwnProfile ? (
           <p className={styles.mood}>{profile.mood_status || "Set a mood or status..."}</p>
         ) : null}
+
+        <p className={styles.meta}>
+          {profile.profile_views.toLocaleString()} profile view
+          {profile.profile_views === 1 ? "" : "s"}
+          {profile.status !== "online" ? (
+            <> &middot; Last online {formatRelativeTime(profile.last_active_at)}</>
+          ) : null}
+        </p>
 
         {isOwnProfile ? (
           <Link href="/profile/edit" className={styles.editLink}>

@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { setTop8 } from "@/lib/top8/actions";
 import { Card } from "@/components/Card/Card";
 import { PlusIcon, XIcon, GripIcon } from "@/components/icons";
@@ -98,8 +99,13 @@ export function Top8Editor({
                 <GripIcon size={13} className={styles.gripHandle} aria-hidden="true" />
                 <Link href={`/profile/${slot.username}`} className={styles.friendLink}>
                   {slot.avatar_url ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={slot.avatar_url} alt="" className={styles.avatar} />
+                    <Image
+                      src={slot.avatar_url}
+                      alt=""
+                      width={200}
+                      height={200}
+                      className={styles.avatar}
+                    />
                   ) : (
                     <div className={styles.avatarFallback}>
                       {(slot.display_name ?? slot.username).slice(0, 2).toUpperCase()}

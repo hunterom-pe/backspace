@@ -22,9 +22,26 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://backspace2026.netlify.app";
+
 export const metadata: Metadata = {
-  title: "backspace",
-  description: "A modern rebuild of the MySpace social profile experience.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "backspace",
+    template: "%s · backspace",
+  },
+  description: "Hit backspace on the last twenty years of the internet.",
+  openGraph: {
+    title: "backspace",
+    description: "Hit backspace on the last twenty years of the internet.",
+    siteName: "backspace",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "backspace",
+    description: "Hit backspace on the last twenty years of the internet.",
+  },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

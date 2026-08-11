@@ -5,6 +5,7 @@ import { sendMessage } from "@/lib/messages/actions";
 import { GifPicker } from "@/components/GifPicker/GifPicker";
 import { formatRelativeTime } from "@/lib/format-time";
 import { GifFrameIcon, SendIcon, XIcon } from "@/components/icons";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 import type { ThreadMessage } from "@/lib/messages/queries";
 import styles from "./MessageThread.module.css";
 
@@ -59,7 +60,9 @@ export function MessageThread({
     <div className={styles.thread}>
       <ul className={styles.list}>
         {messages.length === 0 ? (
-          <li className={styles.empty}>No messages yet. Say hello!</li>
+          <li className={styles.empty}>
+            <EmptyState icon={<SendIcon size={26} />}>No messages yet. Say hello!</EmptyState>
+          </li>
         ) : (
           messages.map((m) => {
             const fromMe = m.sender_id === viewerId;

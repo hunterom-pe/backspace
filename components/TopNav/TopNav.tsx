@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getNotifications, getUnreadCount } from "@/lib/notifications/queries";
 import { DarkModeToggle } from "@/components/DarkModeToggle/DarkModeToggle";
 import { NotificationBell } from "@/components/NotificationBell/NotificationBell";
-import { SearchIcon } from "@/components/icons";
+import { SearchBox } from "@/components/SearchBox/SearchBox";
 import { AvatarMenu } from "./AvatarMenu";
 import styles from "./TopNav.module.css";
 
@@ -30,16 +30,7 @@ export async function TopNav({
         backspace
       </Link>
 
-      <div className={styles.searchWrap}>
-        <SearchIcon size={18} className={styles.searchIcon} aria-hidden="true" />
-        <input
-          type="search"
-          className={styles.search}
-          placeholder="Search backspace..."
-          aria-label="Search backspace"
-          disabled
-        />
-      </div>
+      <SearchBox />
 
       <div className={styles.actions}>
         <NotificationBell

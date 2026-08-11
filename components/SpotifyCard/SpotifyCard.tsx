@@ -1,5 +1,6 @@
 import { Card } from "@/components/Card/Card";
 import { MusicNoteIcon } from "@/components/icons";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 import styles from "./SpotifyCard.module.css";
 
 function EqualizerBars() {
@@ -30,7 +31,7 @@ export function SpotifyCard({ embedUrl }: { embedUrl: string | null }) {
           loading="lazy"
         />
       ) : (
-        <p className={styles.empty}>No Spotify track set yet.</p>
+        <EmptyState icon={<MusicNoteIcon size={26} />}>No Spotify track set yet.</EmptyState>
       )}
     </Card>
   );

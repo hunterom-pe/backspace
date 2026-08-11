@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getThreadMessages } from "@/lib/messages/queries";
@@ -6,6 +8,13 @@ import { markThreadRead } from "@/lib/messages/actions";
 import { TopNav } from "@/components/TopNav/TopNav";
 import { MessageThread } from "@/components/MessageThread/MessageThread";
 import styles from "./thread.module.css";
+
+export async function generateMetadata(
+  props: PageProps<"/messages/[username]">,
+): Promise<Metadata> {
+  const { username } = await props.params;
+  return { title: `@${username}` };
+}
 
 export default async function MessageThreadPage(props: PageProps<"/messages/[username]">) {
   const { username } = await props.params;
@@ -63,8 +72,13 @@ export default async function MessageThreadPage(props: PageProps<"/messages/[use
           </Link>
           <Link href={`/profile/${partner.username}`} className={styles.partnerLink}>
             {partner.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={partner.avatar_url} alt="" className={styles.partnerAvatar} />
+              <Image
+                src={partner.avatar_url}
+                alt=""
+                width={72}
+                height={72}
+                className={styles.partnerAvatar}
+              />
             ) : (
               <div className={styles.partnerAvatarFallback}>{initials}</div>
             )}

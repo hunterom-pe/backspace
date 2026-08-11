@@ -1,11 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getConversations } from "@/lib/messages/queries";
 import { TopNav } from "@/components/TopNav/TopNav";
 import { MailIcon } from "@/components/icons";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { formatRelativeTime } from "@/lib/format-time";
 import styles from "./messages.module.css";
+
+export const metadata: Metadata = { title: "Messages" };
 
 export default async function MessagesPage() {
   const supabase = await createClient();
@@ -43,9 +48,9 @@ export default async function MessagesPage() {
         </h1>
 
         {conversations.length === 0 ? (
-          <p className={styles.empty}>
+          <EmptyState icon={<MailIcon size={28} />}>
             No conversations yet. Visit a profile and click &quot;Message&quot; to start one.
-          </p>
+          </EmptyState>
         ) : (
           <ul className={styles.list}>
             {conversations.map((c) => {
@@ -60,8 +65,13 @@ export default async function MessagesPage() {
                     className={`${styles.item} ${c.unreadCount > 0 ? styles.unread : ""}`}
                   >
                     {c.partner.avatar_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={c.partner.avatar_url} alt="" className={styles.avatar} />
+                      <Image
+                        src={c.partner.avatar_url}
+                        alt=""
+                        width={88}
+                        height={88}
+                        className={styles.avatar}
+                      />
                     ) : (
                       <div className={styles.avatarFallback}>{initials}</div>
                     )}

@@ -24,8 +24,13 @@
 }
 
 .banner {
+  position: relative;
   height: 4.5rem;
   background: linear-gradient(120deg, var(--cobalt), var(--magenta));
+}
+
+.bannerImage {
+  object-fit: cover;
 }
 
 .body {
@@ -92,6 +97,13 @@
 
 .location {
   font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.meta {
+  margin-top: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   color: var(--text-secondary);
 }
 

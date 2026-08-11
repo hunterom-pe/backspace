@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import styles from "./FriendListItem.module.css";
 
@@ -16,8 +17,7 @@ export function FriendListItem({
     <li className={styles.item}>
       <Link href={`/profile/${profile.username}`} className={styles.identity}>
         {profile.avatar_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={profile.avatar_url} alt="" className={styles.avatar} />
+          <Image src={profile.avatar_url} alt="" width={88} height={88} className={styles.avatar} />
         ) : (
           <div className={styles.avatarFallback}>{initials}</div>
         )}

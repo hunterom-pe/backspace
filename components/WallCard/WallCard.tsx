@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card } from "@/components/Card/Card";
 import { WallComposer } from "./WallComposer";
 import { deleteWallComment } from "@/lib/wall/actions";
 import { formatRelativeTime } from "@/lib/format-time";
 import { MessageBubbleIcon, XIcon } from "@/components/icons";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 import type { WallComment } from "@/lib/wall/queries";
 import styles from "./WallCard.module.css";
 
@@ -23,7 +25,9 @@ export function WallCard({
       <WallComposer profileId={profileId} />
 
       {comments.length === 0 ? (
-        <p className={styles.empty}>No comments yet. Be the first to say something!</p>
+        <EmptyState icon={<MessageBubbleIcon size={26} />}>
+          No comments yet. Be the first to say something!
+        </EmptyState>
       ) : (
         <ul className={styles.list}>
           {comments.map((comment) => {
@@ -39,10 +43,11 @@ export function WallCard({
                     className={styles.commentAuthorLink}
                   >
                     {comment.author.avatar_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={comment.author.avatar_url}
                         alt=""
+                        width={64}
+                        height={64}
                         className={styles.commentAvatar}
                       />
                     ) : (

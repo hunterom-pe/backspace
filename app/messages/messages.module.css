@@ -25,13 +25,6 @@
   font-weight: 700;
 }
 
-.empty {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  text-align: center;
-  padding: 2rem 0;
-}
-
 .list {
   display: flex;
   flex-direction: column;

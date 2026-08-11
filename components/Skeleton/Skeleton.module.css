@@ -1,0 +1,50 @@
+.block {
+  border-radius: 8px;
+  background: linear-gradient(
+    100deg,
+    var(--card-border) 0%,
+    color-mix(in srgb, var(--card-border) 35%, transparent) 50%,
+    var(--card-border) 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0.14;
+  animation: skeleton-sheen 1.6s ease-in-out infinite;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.card {
+  border-radius: 16px;
+  border: 3px solid var(--card-border);
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nav {
+  height: 3.9rem;
+  background: #0a0a0f;
+  border-bottom: 3px solid var(--magenta);
+}
+
+@keyframes skeleton-sheen {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block {
+    animation: none;
+    background: var(--card-border);
+    opacity: 0.12;
+  }
+}

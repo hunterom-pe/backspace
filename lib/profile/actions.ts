@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { toSpotifyEmbedUrl } from "@/lib/spotify";
 
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024;
+const MAX_BANNER_BYTES = 8 * 1024 * 1024;
 
 function fail(message: string): never {
   redirect(`/profile/edit?error=${encodeURIComponent(message)}`);
@@ -74,6 +75,32 @@ export async function updateProfile(formData: FormData) {
       data: { publicUrl },
     } = supabase.storage.from("avatars").getPublicUrl(path);
     updates.avatar_url = `${publicUrl}?v=${Date.now()}`;
+  }
+
+  const bannerFile = formData.get("banner");
+  if (bannerFile instanceof File && bannerFile.size > 0) {
+    if (!bannerFile.type.startsWith("image/")) {
+      fail("Banner must be an image file.");
+    }
+    if (bannerFile.size > MAX_BANNER_BYTES) {
+      fail("Banner must be under 8MB.");
+    }
+
+    const ext = bannerFile.name.split(".").pop()?.toLowerCase() || "jpg";
+    const path = `${user.id}/banner.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("banners")
+      .upload(path, bannerFile, { upsert: true, contentType: bannerFile.type });
+
+    if (uploadError) {
+      fail(uploadError.message);
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("banners").getPublicUrl(path);
+    updates.banner_url = `${publicUrl}?v=${Date.now()}`;
   }
 
   const { error } = await supabase.from("profiles").update(updates).eq("id", user.id);

@@ -1,10 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateProfile } from "@/lib/profile/actions";
 import { PencilIcon } from "@/components/icons";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import styles from "./edit-profile.module.css";
+
+export const metadata: Metadata = { title: "Edit profile" };
 
 export default async function EditProfilePage(props: PageProps<"/profile/edit">) {
   const supabase = await createClient();
@@ -45,10 +49,34 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
         {error ? <p className={styles.error}>{error}</p> : null}
 
         <form className={styles.form} action={updateProfile}>
+          <div className={styles.bannerRow}>
+            {profile.banner_url ? (
+              <Image
+                src={profile.banner_url}
+                alt=""
+                width={640}
+                height={140}
+                className={styles.bannerPreview}
+              />
+            ) : (
+              <div className={styles.bannerPlaceholder} />
+            )}
+            <div className={styles.field}>
+              <label htmlFor="banner">Banner</label>
+              <input id="banner" name="banner" type="file" accept="image/*" />
+              <span className={styles.hint}>PNG or JPG, up to 8MB. Wide images work best.</span>
+            </div>
+          </div>
+
           <div className={styles.avatarRow}>
             {profile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={profile.avatar_url} alt="" className={styles.avatarPreview} />
+              <Image
+                src={profile.avatar_url}
+                alt=""
+                width={128}
+                height={128}
+                className={styles.avatarPreview}
+              />
             ) : (
               <div className={styles.avatarPlaceholder}>
                 {(profile.display_name || profile.username).slice(0, 2).toUpperCase()}

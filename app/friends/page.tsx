@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getFriendsPageData } from "@/lib/friends/queries";
@@ -5,7 +6,11 @@ import { respondToFriendRequest, removeFriendship } from "@/lib/friends/actions"
 import { TopNav } from "@/components/TopNav/TopNav";
 import { Card } from "@/components/Card/Card";
 import { FriendListItem } from "@/components/FriendListItem/FriendListItem";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { UserPlusIcon } from "@/components/icons";
 import styles from "./friends.module.css";
+
+export const metadata: Metadata = { title: "Friends" };
 
 export default async function FriendsPage() {
   const supabase = await createClient();
@@ -39,7 +44,7 @@ export default async function FriendsPage() {
       <div className={styles.container}>
         <Card title={`Friend requests${incoming.length ? ` (${incoming.length})` : ""}`}>
           {incoming.length === 0 ? (
-            <p className={styles.empty}>No pending requests.</p>
+            <EmptyState icon={<UserPlusIcon size={26} />}>No pending requests.</EmptyState>
           ) : (
             <ul className={styles.list}>
               {incoming.map(({ friendshipId, profile }) => (
@@ -96,9 +101,9 @@ export default async function FriendsPage() {
 
         <Card title={`Friends${friends.length ? ` (${friends.length})` : ""}`}>
           {friends.length === 0 ? (
-            <p className={styles.empty}>
+            <EmptyState icon={<UserPlusIcon size={26} />}>
               No friends yet. Visit a profile and click &quot;Add Friend&quot; to get started.
-            </p>
+            </EmptyState>
           ) : (
             <ul className={styles.list}>
               {friends.map(({ friendshipId, profile }) => (

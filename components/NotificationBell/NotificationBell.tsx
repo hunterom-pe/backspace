@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { markAllNotificationsRead } from "@/lib/notifications/actions";
 import { formatRelativeTime } from "@/lib/format-time";
 import { BellIcon } from "@/components/icons";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 import type { AppNotification, NotificationType } from "@/lib/notifications/queries";
 import styles from "./NotificationBell.module.css";
 
@@ -164,7 +165,7 @@ export function NotificationBell({
         <div className={styles.dropdown} role="menu">
           <p className={styles.dropdownTitle}>Notifications</p>
           {notifications.length === 0 ? (
-            <p className={styles.empty}>No notifications yet.</p>
+            <EmptyState icon={<BellIcon size={26} />}>No notifications yet.</EmptyState>
           ) : (
             <ul className={styles.list}>
               {notifications.map((n) => {

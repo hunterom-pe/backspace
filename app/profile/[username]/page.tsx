@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/AppShell/AppShell";
@@ -13,6 +14,40 @@ import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
 import { getTop8 } from "@/lib/top8/queries";
 import { getWallComments } from "@/lib/wall/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
+
+export async function generateMetadata(
+  props: PageProps<"/profile/[username]">,
+): Promise<Metadata> {
+  const { username } = await props.params;
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("username, display_name, tagline, about_me, avatar_url")
+    .eq("username", username)
+    .single();
+
+  if (!profile) {
+    return { title: "Profile not found" };
+  }
+
+  const name = profile.display_name || profile.username;
+  const description = profile.tagline || profile.about_me || `@${profile.username} on backspace`;
+
+  return {
+    title: name,
+    description,
+    openGraph: {
+      title: name,
+      description,
+      images: profile.avatar_url ? [profile.avatar_url] : undefined,
+    },
+    twitter: {
+      title: name,
+      description,
+      images: profile.avatar_url ? [profile.avatar_url] : undefined,
+    },
+  };
+}
 
 export default async function ProfilePage(props: PageProps<"/profile/[username]">) {
   const { username } = await props.params;
@@ -52,6 +87,9 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
     getTop8(supabase, profile.id),
     isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
     getWallComments(supabase, profile.id),
+    isOwnProfile
+      ? Promise.resolve(null)
+      : supabase.rpc("increment_profile_views", { target_id: profile.id }),
   ]);
 
   return (

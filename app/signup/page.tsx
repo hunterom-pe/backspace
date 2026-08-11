@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signup } from "@/lib/auth/actions";
 import { createClient } from "@/lib/supabase/server";
 import styles from "../auth-form.module.css";
+
+export const metadata: Metadata = { title: "Sign up" };
 
 export default async function SignupPage(props: PageProps<"/signup">) {
   const supabase = await createClient();
