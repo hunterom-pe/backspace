@@ -4,6 +4,11 @@
   gap: 0.5rem;
 }
 
+.composerError {
+  font-size: 0.8rem;
+  color: var(--danger);
+}
+
 .input {
   resize: none;
   padding: 0.6rem 0.75rem;
@@ -12,9 +17,26 @@
   background: var(--background);
 }
 
-.input:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
+.gifPreview {
+  position: relative;
+  width: fit-content;
+}
+
+.gifPreviewImage {
+  max-width: 10rem;
+  max-height: 10rem;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+.removeGif {
+  margin-top: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 0.75rem;
 }
 
 .composerActions {
@@ -23,19 +45,14 @@
   align-items: center;
 }
 
-.gifButton {
+.gifToggle {
   padding: 0.35rem 0.75rem;
   border-radius: 0.5rem;
   border: 1px solid var(--border);
   background: var(--surface);
   font-weight: 700;
   font-size: 0.8rem;
-}
-
-.gifButton:disabled,
-.submit:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+  cursor: pointer;
 }
 
 .submit {
@@ -45,6 +62,12 @@
   background: var(--accent);
   color: var(--accent-foreground);
   font-weight: 600;
+  cursor: pointer;
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .empty {
@@ -68,19 +91,99 @@
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.5rem;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.postAuthorLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.postAvatar,
+.postAvatarFallback {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.postAvatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 700;
+  font-size: 0.7rem;
 }
 
 .postAuthor {
+  display: block;
   font-weight: 700;
   font-size: 0.85rem;
 }
 
-.postBody {
-  font-size: 0.9rem;
+.postTime {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
-.postMeta {
-  font-size: 0.8rem;
+.postBody {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.postGif {
+  max-width: 100%;
+  max-height: 20rem;
+  border-radius: 0.5rem;
+}
+
+.deleteButton {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
   color: var(--muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.deleteButton:hover {
+  color: var(--danger);
+}
+
+.likeButton {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.likeButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.liked {
+  border-color: var(--danger);
+  color: var(--danger);
 }

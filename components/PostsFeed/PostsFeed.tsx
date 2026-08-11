@@ -1,46 +1,71 @@
+import Link from "next/link";
 import { Card } from "@/components/Card/Card";
+import { PostComposer } from "./PostComposer";
+import { LikeButton } from "./LikeButton";
+import { deletePost } from "@/lib/posts/actions";
+import { formatRelativeTime } from "@/lib/format-time";
+import type { FeedPost } from "@/lib/posts/queries";
 import styles from "./PostsFeed.module.css";
 
-type Post = {
-  id: string;
-  authorName: string;
-  content: string;
-  likeCount: number;
-  createdAt: string;
-};
-
-export function PostsFeed({ posts = [] }: { posts?: Post[] }) {
+export function PostsFeed({ viewerId, posts }: { viewerId: string; posts: FeedPost[] }) {
   return (
     <Card title="Posts">
-      <form className={styles.composer}>
-        <textarea
-          className={styles.input}
-          placeholder="What's on your mind?"
-          rows={3}
-          disabled
-          title="Posting is coming in a later build step"
-        />
-        <div className={styles.composerActions}>
-          <button type="button" className={styles.gifButton} disabled>
-            GIF
-          </button>
-          <button type="submit" className={styles.submit} disabled>
-            Post
-          </button>
-        </div>
-      </form>
+      <PostComposer />
 
       {posts.length === 0 ? (
         <p className={styles.empty}>No posts yet. Add friends to see their updates here.</p>
       ) : (
         <ul className={styles.list}>
-          {posts.map((post) => (
-            <li key={post.id} className={styles.post}>
-              <p className={styles.postAuthor}>{post.authorName}</p>
-              <p className={styles.postBody}>{post.content}</p>
-              <p className={styles.postMeta}>❤ {post.likeCount}</p>
-            </li>
-          ))}
+          {posts.map((post) => {
+            const name = post.author.display_name || post.author.username;
+            const initials = name.slice(0, 2).toUpperCase();
+            const isOwn = post.author.id === viewerId;
+
+            return (
+              <li key={post.id} className={styles.post}>
+                <div className={styles.postHeader}>
+                  <Link
+                    href={`/profile/${post.author.username}`}
+                    className={styles.postAuthorLink}
+                  >
+                    {post.author.avatar_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={post.author.avatar_url} alt="" className={styles.postAvatar} />
+                    ) : (
+                      <div className={styles.postAvatarFallback}>{initials}</div>
+                    )}
+                    <span>
+                      <span className={styles.postAuthor}>{name}</span>
+                      <span className={styles.postTime}>
+                        {formatRelativeTime(post.created_at)}
+                      </span>
+                    </span>
+                  </Link>
+
+                  {isOwn ? (
+                    <form action={deletePost}>
+                      <input type="hidden" name="post_id" value={post.id} />
+                      <button type="submit" className={styles.deleteButton}>
+                        Delete
+                      </button>
+                    </form>
+                  ) : null}
+                </div>
+
+                {post.content ? <p className={styles.postBody}>{post.content}</p> : null}
+                {post.gif_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={post.gif_url} alt="" className={styles.postGif} />
+                ) : null}
+
+                <LikeButton
+                  postId={post.id}
+                  initialLiked={post.liked_by_viewer}
+                  initialCount={post.like_count}
+                />
+              </li>
+            );
+          })}
         </ul>
       )}
     </Card>
