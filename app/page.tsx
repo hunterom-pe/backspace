@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { logout } from "@/lib/auth/actions";
 import { createClient } from "@/lib/supabase/server";
+import { AppShell } from "@/components/AppShell/AppShell";
+import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
+import { AboutCard } from "@/components/AboutCard/AboutCard";
+import { Top8Card } from "@/components/Top8Card/Top8Card";
+import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
+import { WallCard } from "@/components/WallCard/WallCard";
+import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
+import type { Profile } from "@/lib/types";
 import styles from "./page.module.css";
 
 export default async function Home() {
@@ -31,23 +38,42 @@ export default async function Home() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("username, display_name")
+    .select(
+      "id, username, display_name, avatar_url, location, tagline, mood_status, about_me, interests, spotify_embed_url, status",
+    )
     .eq("id", user.id)
-    .single();
+    .single<Profile>();
+
+  if (!profile) {
+    return (
+      <main className={styles.page}>
+        <p className={styles.subtitle}>
+          We couldn&apos;t load your profile. Try refreshing, or log out and back in.
+        </p>
+      </main>
+    );
+  }
+
+  const name = profile.display_name || profile.username;
 
   return (
-    <main className={styles.page}>
-      <h1 className={styles.title}>Backspace</h1>
-      <p className={styles.welcome}>
-        Welcome back, {profile?.display_name ?? profile?.username ?? user.email}.
-      </p>
-      <p className={styles.subtitle}>
-        Profile, friends, Top 8, and the rest of the dashboard are coming in the next
-        build steps.
-      </p>
-      <form className={styles.logoutForm} action={logout}>
-        <button type="submit">Log out</button>
-      </form>
-    </main>
+    <AppShell
+      displayName={name}
+      username={profile.username}
+      sidebar={
+        <>
+          <ProfileCard profile={profile} />
+          <AboutCard profile={profile} />
+          <Top8Card />
+        </>
+      }
+      main={
+        <>
+          <SpotifyCard embedUrl={profile.spotify_embed_url} />
+          <WallCard />
+          <PostsFeed />
+        </>
+      }
+    />
   );
 }
