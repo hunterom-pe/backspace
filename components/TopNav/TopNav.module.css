@@ -38,23 +38,6 @@
   margin-left: auto;
 }
 
-.bell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-size: 1.1rem;
-}
-
-.bell:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
 .avatarMenu {
   position: relative;
 }

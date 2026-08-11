@@ -58,6 +58,13 @@ export async function setTop8(entries: Top8Entry[]): Promise<Top8Result> {
     .eq("id", user.id)
     .single();
 
+  const { data: existingRows } = await supabase
+    .from("top8")
+    .select("friend_id")
+    .eq("user_id", user.id);
+  const previousFriendIds = new Set((existingRows ?? []).map((r) => r.friend_id));
+  const newlyAddedIds = friendIds.filter((id) => !previousFriendIds.has(id));
+
   const { error: deleteError } = await supabase.from("top8").delete().eq("user_id", user.id);
   if (deleteError) {
     return { ok: false, error: deleteError.message };
@@ -70,6 +77,17 @@ export async function setTop8(entries: Top8Entry[]): Promise<Top8Result> {
     if (insertError) {
       return { ok: false, error: insertError.message };
     }
+  }
+
+  if (newlyAddedIds.length > 0) {
+    await supabase.from("notifications").insert(
+      newlyAddedIds.map((friendId) => ({
+        user_id: friendId,
+        type: "top8_added",
+        actor_id: user.id,
+        reference_id: null,
+      })),
+    );
   }
 
   revalidatePath("/", "layout");

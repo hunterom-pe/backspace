@@ -31,7 +31,11 @@ export default async function FriendsPage() {
 
   return (
     <div className={styles.page}>
-      <TopNav displayName={viewer.display_name || viewer.username} username={viewer.username} />
+      <TopNav
+        viewerId={user.id}
+        displayName={viewer.display_name || viewer.username}
+        username={viewer.username}
+      />
       <div className={styles.container}>
         <Card title={`Friend requests${incoming.length ? ` (${incoming.length})` : ""}`}>
           {incoming.length === 0 ? (

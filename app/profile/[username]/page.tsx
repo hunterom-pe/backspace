@@ -56,6 +56,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
 
   return (
     <AppShell
+      viewerId={user.id}
       viewerDisplayName={viewer.display_name || viewer.username}
       viewerUsername={viewer.username}
       sidebar={

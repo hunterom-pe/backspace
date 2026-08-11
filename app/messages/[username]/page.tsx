@@ -51,7 +51,11 @@ export default async function MessageThreadPage(props: PageProps<"/messages/[use
 
   return (
     <div className={styles.page}>
-      <TopNav displayName={viewer.display_name || viewer.username} username={viewer.username} />
+      <TopNav
+        viewerId={user.id}
+        displayName={viewer.display_name || viewer.username}
+        username={viewer.username}
+      />
       <div className={styles.container}>
         <div className={styles.header}>
           <Link href="/messages" className={styles.backLink}>

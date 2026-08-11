@@ -66,6 +66,7 @@ export default async function Home() {
 
   return (
     <AppShell
+      viewerId={user.id}
       viewerDisplayName={name}
       viewerUsername={profile.username}
       sidebar={

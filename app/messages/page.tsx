@@ -30,7 +30,11 @@ export default async function MessagesPage() {
 
   return (
     <div className={styles.page}>
-      <TopNav displayName={viewer.display_name || viewer.username} username={viewer.username} />
+      <TopNav
+        viewerId={user.id}
+        displayName={viewer.display_name || viewer.username}
+        username={viewer.username}
+      />
       <div className={styles.container}>
         <h1 className={styles.heading}>Messages</h1>
 
