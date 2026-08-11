@@ -26,7 +26,7 @@ export async function TopNav({
 
   return (
     <header className={styles.nav}>
-      <Link href="/" className={styles.logo}>
+      <Link href="/feed" className={styles.logo}>
         backspace
       </Link>
 

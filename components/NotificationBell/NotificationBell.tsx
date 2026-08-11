@@ -29,9 +29,9 @@ function linkFor(notification: AppNotification, viewerUsername: string): string 
     case "message":
       return actorUsername ? `/messages/${actorUsername}` : "/messages";
     case "top8_added":
-      return actorUsername ? `/profile/${actorUsername}` : "/";
+      return actorUsername ? `/profile/${actorUsername}` : "/feed";
     default:
-      return "/";
+      return "/feed";
   }
 }
 

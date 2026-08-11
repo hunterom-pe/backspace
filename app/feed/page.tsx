@@ -1,0 +1,63 @@
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { AppShell } from "@/components/AppShell/AppShell";
+import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
+import { AboutCard } from "@/components/AboutCard/AboutCard";
+import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
+import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
+import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
+import { getTop8 } from "@/lib/top8/queries";
+import { getFriendsPageData } from "@/lib/friends/queries";
+import { getFeedPosts } from "@/lib/posts/queries";
+import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
+
+export const metadata: Metadata = { title: "Feed" };
+
+export default async function FeedPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select(PROFILE_COLUMNS)
+    .eq("id", user.id)
+    .single<Profile>();
+
+  if (!profile) {
+    redirect("/login");
+  }
+
+  const name = profile.display_name || profile.username;
+  const [top8Slots, { friends }, feedPosts] = await Promise.all([
+    getTop8(supabase, user.id),
+    getFriendsPageData(supabase, user.id),
+    getFeedPosts(supabase, user.id),
+  ]);
+
+  return (
+    <AppShell
+      viewerId={user.id}
+      viewerDisplayName={name}
+      viewerUsername={profile.username}
+      sidebar={
+        <>
+          <ProfileCard profile={profile} isOwnProfile />
+          <AboutCard profile={profile} isOwnProfile />
+          <Top8Editor
+            initialSlots={top8Slots}
+            availableFriends={friends.map((f) => f.profile)}
+          />
+          <SpotifyCard embedUrl={profile.spotify_embed_url} />
+        </>
+      }
+      main={<PostsFeed viewerId={user.id} posts={feedPosts} />}
+    />
+  );
+}

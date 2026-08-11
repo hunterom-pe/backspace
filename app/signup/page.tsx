@@ -13,7 +13,7 @@ export default async function SignupPage(props: PageProps<"/signup">) {
     data: { user },
   } = await supabase.auth.getUser();
   if (user) {
-    redirect("/");
+    redirect("/feed");
   }
 
   const searchParams = await props.searchParams;
