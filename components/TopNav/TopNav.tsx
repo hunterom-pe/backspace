@@ -37,7 +37,12 @@ export function TopNav({
           🔔
         </button>
         <DarkModeToggle />
-        <AvatarMenu initials={initials} label={`@${username}`} onLogout={logout} />
+        <AvatarMenu
+          initials={initials}
+          label={`@${username}`}
+          username={username}
+          onLogout={logout}
+        />
       </div>
     </header>
   );

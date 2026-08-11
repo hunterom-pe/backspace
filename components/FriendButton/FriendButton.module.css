@@ -1,0 +1,52 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
+}
+
+.secondaryButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.secondaryButton:hover {
+  border-color: var(--accent);
+}
+
+.textButton {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.textButton:hover {
+  color: var(--danger);
+}
+
+.friendsBadge {
+  font-weight: 700;
+  color: var(--online);
+  font-size: 0.9rem;
+}

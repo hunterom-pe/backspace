@@ -95,6 +95,7 @@
 }
 
 .dropdownItem {
+  display: block;
   width: 100%;
   text-align: left;
   padding: 0.4rem 0.5rem;

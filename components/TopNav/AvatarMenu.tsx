@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import styles from "./TopNav.module.css";
 
 export function AvatarMenu({
   initials,
   label,
+  username,
   onLogout,
 }: {
   initials: string;
   label: string;
+  username: string;
   onLogout: () => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -39,6 +42,22 @@ export function AvatarMenu({
       {open ? (
         <div className={styles.dropdown} role="menu">
           <p className={styles.dropdownLabel}>{label}</p>
+          <Link
+            href={`/profile/${username}`}
+            className={styles.dropdownItem}
+            role="menuitem"
+            onClick={() => setOpen(false)}
+          >
+            My profile
+          </Link>
+          <Link
+            href="/friends"
+            className={styles.dropdownItem}
+            role="menuitem"
+            onClick={() => setOpen(false)}
+          >
+            Friends
+          </Link>
           <form action={onLogout}>
             <button type="submit" className={styles.dropdownItem} role="menuitem">
               Log out

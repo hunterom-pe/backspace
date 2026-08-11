@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { Profile } from "@/lib/types";
 import styles from "./ProfileCard.module.css";
 
@@ -11,9 +12,11 @@ const STATUS_LABEL: Record<Profile["status"], string> = {
 export function ProfileCard({
   profile,
   isOwnProfile = false,
+  action,
 }: {
   profile: Profile;
   isOwnProfile?: boolean;
+  action?: ReactNode;
 }) {
   const name = profile.display_name || profile.username;
   const initials = name.slice(0, 2).toUpperCase();
@@ -53,7 +56,9 @@ export function ProfileCard({
         <Link href="/profile/edit" className={styles.editLink}>
           Edit profile
         </Link>
-      ) : null}
+      ) : (
+        action
+      )}
     </section>
   );
 }

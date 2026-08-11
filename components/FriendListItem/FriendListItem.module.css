@@ -1,0 +1,59 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.avatar,
+.avatarFallback {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.username {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.action {
+  flex-shrink: 0;
+}

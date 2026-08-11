@@ -6,6 +6,8 @@ import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { Top8Card } from "@/components/Top8Card/Top8Card";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
+import { FriendButton } from "@/components/FriendButton/FriendButton";
+import { getFriendshipState } from "@/lib/friends/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 
 export default async function ProfilePage(props: PageProps<"/profile/[username]">) {
@@ -41,6 +43,9 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
   }
 
   const isOwnProfile = profile.id === user.id;
+  const friendshipState = isOwnProfile
+    ? null
+    : await getFriendshipState(supabase, user.id, profile.id);
 
   return (
     <AppShell
@@ -48,7 +53,19 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       viewerUsername={viewer.username}
       sidebar={
         <>
-          <ProfileCard profile={profile} isOwnProfile={isOwnProfile} />
+          <ProfileCard
+            profile={profile}
+            isOwnProfile={isOwnProfile}
+            action={
+              friendshipState ? (
+                <FriendButton
+                  targetId={profile.id}
+                  state={friendshipState}
+                  redirectTo={`/profile/${profile.username}`}
+                />
+              ) : null
+            }
+          />
           <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
           <Top8Card />
         </>
