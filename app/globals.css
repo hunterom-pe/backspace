@@ -1,17 +1,47 @@
 :root {
-  --background: #ffffff;
+  --background: #f4f2ee;
+  --surface: #ffffff;
   --foreground: #171717;
+  --muted: #6b7280;
+  --border: #e2e0da;
+  --accent: #cc3366;
+  --accent-foreground: #ffffff;
+  --danger: #c0392b;
+  --online: #2ecc71;
+  --away: #f1c40f;
+}
+
+:root[data-theme="dark"] {
+  --background: #0a0a0a;
+  --surface: #171717;
+  --foreground: #ededed;
+  --muted: #9ca3af;
+  --border: #2a2a2a;
+  --accent: #ff6699;
+  --accent-foreground: #171717;
+  --danger: #e57373;
+  --online: #2ecc71;
+  --away: #f1c40f;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --background: #0a0a0a;
+    --surface: #171717;
     --foreground: #ededed;
+    --muted: #9ca3af;
+    --border: #2a2a2a;
+    --accent: #ff6699;
+    --accent-foreground: #171717;
+    --danger: #e57373;
+    --online: #2ecc71;
+    --away: #f1c40f;
   }
 }
 
 html {
   height: 100%;
+  color-scheme: light dark;
 }
 
 html,
@@ -42,8 +72,9 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
 }
