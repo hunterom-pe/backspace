@@ -19,7 +19,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
   return (
     <div className={styles.wrap}>
       <div className={styles.card}>
-        <p className={styles.logo}>Backspace</p>
+        <p className={styles.logo}>backspace</p>
         <p className={styles.subtitle}>Log in to your profile.</p>
 
         {error ? <p className={styles.error}>{error}</p> : null}

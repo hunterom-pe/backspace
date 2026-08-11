@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -6,13 +7,92 @@
   justify-content: center;
   padding: 2rem 1rem;
   text-align: center;
-  gap: 1.5rem;
   background: var(--bg);
+  overflow: hidden;
+}
+
+.page::before,
+.page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+.page::before {
+  width: 22rem;
+  height: 22rem;
+  top: -6rem;
+  left: -6rem;
+  background: color-mix(in srgb, var(--cobalt) 30%, transparent);
+}
+
+.page::after {
+  width: 22rem;
+  height: 22rem;
+  bottom: -6rem;
+  right: -6rem;
+  background: color-mix(in srgb, var(--magenta) 25%, transparent);
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 34rem;
+  background: var(--surface);
+  border: 3px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  padding: 3rem 2.5rem;
+}
+
+.hero > * {
+  animation: card-fade-in 420ms ease backwards;
+}
+
+.hero > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.hero > *:nth-child(2) {
+  animation-delay: 80ms;
+}
+.hero > *:nth-child(3) {
+  animation-delay: 160ms;
+}
+.hero > *:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 3px solid var(--card-border);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  box-shadow: 3px 3px 0px var(--card-border);
+  transform: rotate(-4deg);
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   background: linear-gradient(120deg, var(--cobalt), var(--magenta));
@@ -21,13 +101,47 @@
   color: transparent;
 }
 
+.tagline {
+  max-width: 26rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
 .subtitle {
-  max-width: 32rem;
+  max-width: 28rem;
   color: var(--text-secondary);
-  font-size: 1.05rem;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .ctas {
   display: flex;
   gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 2.25rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2.1rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+
+  .ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ctas > * {
+    width: 100%;
+  }
 }

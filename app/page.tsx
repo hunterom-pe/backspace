@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { BackspaceMark } from "@/components/Logo/BackspaceMark";
 import { AppShell } from "@/components/AppShell/AppShell";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
@@ -23,18 +24,28 @@ export default async function Home() {
   if (!user) {
     return (
       <main className={styles.page}>
-        <h1 className={styles.title}>Backspace</h1>
-        <p className={styles.subtitle}>
-          Your profile, your Top 8, your wall — back from the dead. Sign up to claim your
-          username.
-        </p>
-        <div className={styles.ctas}>
-          <Link href="/signup" className="btn-primary">
-            Sign up
-          </Link>
-          <Link href="/login" className="btn-secondary">
-            Log in
-          </Link>
+        <div className={styles.hero}>
+          <div className={styles.brand}>
+            <span className={styles.mark}>
+              <BackspaceMark size={30} />
+            </span>
+            <h1 className={styles.title}>backspace</h1>
+          </div>
+          <p className={styles.tagline}>
+            Hit backspace on the last twenty years of the internet.
+          </p>
+          <p className={styles.subtitle}>
+            Profiles, Top 8s, wall posts, and away messages — the whole bit is back. Claim your
+            username before your middle school nemesis does.
+          </p>
+          <div className={styles.ctas}>
+            <Link href="/signup" className="btn-primary">
+              Sign up
+            </Link>
+            <Link href="/login" className="btn-secondary">
+              Log in
+            </Link>
+          </div>
         </div>
       </main>
     );

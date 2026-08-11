@@ -23,7 +23,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Backspace",
+  title: "backspace",
   description: "A modern rebuild of the MySpace social profile experience.",
 };
 

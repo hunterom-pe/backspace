@@ -27,7 +27,7 @@ export async function TopNav({
   return (
     <header className={styles.nav}>
       <Link href="/" className={styles.logo}>
-        Backspace
+        backspace
       </Link>
 
       <div className={styles.searchWrap}>
@@ -35,8 +35,8 @@ export async function TopNav({
         <input
           type="search"
           className={styles.search}
-          placeholder="Search Backspace..."
-          aria-label="Search Backspace"
+          placeholder="Search backspace..."
+          aria-label="Search backspace"
           disabled
         />
       </div>
