@@ -26,7 +26,7 @@ export function SpotifyCard({ embedUrl }: { embedUrl: string | null }) {
           className={styles.frame}
           src={embedUrl}
           width="100%"
-          height="152"
+          height="80"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         />
