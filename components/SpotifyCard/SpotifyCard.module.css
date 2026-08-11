@@ -1,11 +1,62 @@
 .frame {
-  border: none;
-  border-radius: 0.5rem;
+  border: 2.5px solid var(--card-border);
+  border-radius: 10px;
 }
 
 .empty {
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   padding: 1rem 0;
   text-align: center;
+}
+
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 1rem;
+}
+
+.bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--cyan);
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
+.bar:nth-child(1) {
+  height: 40%;
+  animation-delay: -0.6s;
+}
+
+.bar:nth-child(2) {
+  height: 100%;
+  animation-delay: -0.3s;
+}
+
+.bar:nth-child(3) {
+  height: 60%;
+  animation-delay: -0.75s;
+}
+
+.bar:nth-child(4) {
+  height: 80%;
+  animation-delay: -0.15s;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+    transform: scaleY(0.7);
+  }
 }

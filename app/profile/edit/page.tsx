@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateProfile } from "@/lib/profile/actions";
+import { PencilIcon } from "@/components/icons";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import styles from "./edit-profile.module.css";
 
@@ -32,7 +33,10 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
     <div className={styles.wrap}>
       <div className={styles.card}>
         <div className={styles.header}>
-          <p className={styles.title}>Edit profile</p>
+          <p className={styles.title}>
+            <PencilIcon size={20} aria-hidden="true" />
+            Edit profile
+          </p>
           <Link href={`/profile/${profile.username}`} className={styles.cancel}>
             Cancel
           </Link>
@@ -63,6 +67,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               id="display_name"
               name="display_name"
               type="text"
+              className="field-input"
               defaultValue={profile.display_name ?? ""}
               maxLength={60}
             />
@@ -75,6 +80,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               name="tagline"
               type="text"
               placeholder="A short headline for your profile"
+              className="field-input"
               defaultValue={profile.tagline ?? ""}
               maxLength={100}
             />
@@ -86,6 +92,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               id="location"
               name="location"
               type="text"
+              className="field-input"
               defaultValue={profile.location ?? ""}
               maxLength={100}
             />
@@ -97,6 +104,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               id="mood_status"
               name="mood_status"
               type="text"
+              className="field-input"
               defaultValue={profile.mood_status ?? ""}
               maxLength={100}
             />
@@ -108,6 +116,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               id="about_me"
               name="about_me"
               rows={4}
+              className="field-input"
               defaultValue={profile.about_me ?? ""}
               maxLength={2000}
             />
@@ -119,6 +128,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               id="interests"
               name="interests"
               rows={3}
+              className="field-input"
               defaultValue={profile.interests ?? ""}
               maxLength={2000}
             />
@@ -131,6 +141,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               name="spotify_embed_url"
               type="url"
               placeholder="https://open.spotify.com/track/..."
+              className="field-input"
               defaultValue={profile.spotify_embed_url ?? ""}
             />
             <span className={styles.hint}>
@@ -138,7 +149,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
             </span>
           </div>
 
-          <button type="submit" className={styles.submit}>
+          <button type="submit" className={`btn-primary ${styles.submit}`}>
             Save changes
           </button>
         </form>

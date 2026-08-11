@@ -19,7 +19,7 @@ export default async function SignupPage(props: PageProps<"/signup">) {
   return (
     <div className={styles.wrap}>
       <div className={styles.card}>
-        <p className={styles.title}>Backspace</p>
+        <p className={styles.logo}>Backspace</p>
         <p className={styles.subtitle}>Create your profile.</p>
 
         {error ? <p className={styles.error}>{error}</p> : null}
@@ -33,6 +33,7 @@ export default async function SignupPage(props: PageProps<"/signup">) {
               type="text"
               autoComplete="username"
               pattern="[a-z0-9_]{3,20}"
+              className="field-input"
               required
             />
             <span className={styles.hint}>
@@ -43,7 +44,14 @@ export default async function SignupPage(props: PageProps<"/signup">) {
 
           <div className={styles.field}>
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" autoComplete="email" required />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              className="field-input"
+              required
+            />
           </div>
 
           <div className={styles.field}>
@@ -54,11 +62,12 @@ export default async function SignupPage(props: PageProps<"/signup">) {
               type="password"
               autoComplete="new-password"
               minLength={6}
+              className="field-input"
               required
             />
           </div>
 
-          <button className={styles.submit} type="submit">
+          <button className={`btn-primary ${styles.submit}`} type="submit">
             Sign up
           </button>
         </form>

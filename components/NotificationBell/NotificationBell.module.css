@@ -1,27 +1,46 @@
+/* Deliberately NOT position: relative — the dropdown below needs to anchor
+   against the shared .actions row in TopNav (so it right-aligns with the
+   whole nav-button cluster), not against this bell alone. The bell isn't
+   the rightmost nav item, so anchoring here overflows off the left edge of
+   narrow viewports. */
+.wrap {
+  display: contents;
+}
+
 .bell {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-size: 1.1rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 10px;
+  border: 2px solid rgba(243, 245, 250, 0.25);
+  background: rgba(243, 245, 250, 0.08);
+  color: #f3f5fa;
   cursor: pointer;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease;
+}
+
+.bell:hover {
+  border-color: var(--magenta);
+  transform: translateY(-2px);
 }
 
 .badge {
   position: absolute;
-  top: -0.3rem;
-  right: -0.3rem;
-  min-width: 1.1rem;
-  height: 1.1rem;
-  padding: 0 0.25rem;
+  top: -0.4rem;
+  right: -0.4rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 0.3rem;
   border-radius: 999px;
-  background: var(--danger);
-  color: white;
+  border: 2px solid #0a0a0f;
+  background: var(--magenta);
+  color: #0a0a0f;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 700;
   display: flex;
@@ -33,29 +52,31 @@
 .dropdown {
   position: absolute;
   right: 0;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.6rem);
   width: 20rem;
   max-width: 85vw;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  color: var(--ink);
+  border: 3px solid var(--card-border);
+  border-radius: 14px;
   padding: 0.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--card-shadow);
   z-index: 30;
 }
 
 .dropdownTitle {
   padding: 0.35rem 0.5rem;
-  font-size: 0.8rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
   font-weight: 700;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--card-border);
   margin-bottom: 0.25rem;
 }
 
 .empty {
   padding: 0.75rem 0.5rem;
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   text-align: center;
 }
 
@@ -70,14 +91,34 @@
 
 .item {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  align-items: flex-start;
+  gap: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.35rem;
+  border-radius: 8px;
 }
 
 .item:hover {
-  background: var(--background);
+  background: var(--cobalt-soft);
+}
+
+.unreadDot,
+.unreadDotSpacer {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-top: 0.35rem;
+}
+
+.unreadDot {
+  background: var(--cyan);
+}
+
+.itemBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
 }
 
 .itemText {
@@ -85,6 +126,7 @@
 }
 
 .itemTime {
+  font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--muted);
+  color: var(--text-secondary);
 }

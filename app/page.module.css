@@ -7,40 +7,27 @@
   padding: 2rem 1rem;
   text-align: center;
   gap: 1.5rem;
+  background: var(--bg);
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--cobalt), var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .subtitle {
   max-width: 32rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: 1.05rem;
 }
 
 .ctas {
   display: flex;
   gap: 1rem;
-}
-
-.primary,
-.secondary {
-  padding: 0.65rem 1.25rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--border);
-}
-
-.primary {
-  background: var(--accent);
-  color: var(--accent-foreground);
-  border-color: var(--accent);
-}
-
-.secondary {
-  background: var(--surface);
 }

@@ -3,10 +3,12 @@ import styles from "./Card.module.css";
 
 export function Card({
   title,
+  icon,
   action,
   children,
 }: {
   title?: string;
+  icon?: ReactNode;
   action?: ReactNode;
   children: ReactNode;
 }) {
@@ -14,7 +16,14 @@ export function Card({
     <section className={styles.card}>
       {title ? (
         <header className={styles.header}>
-          <h2 className={styles.title}>{title}</h2>
+          <h2 className={styles.title}>
+            {icon ? (
+              <span className={styles.titleIcon} aria-hidden="true">
+                {icon}
+              </span>
+            ) : null}
+            {title}
+          </h2>
           {action}
         </header>
       ) : null}

@@ -1,12 +1,29 @@
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border: 3px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   min-width: 0;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px var(--card-border);
+  }
+}
+
+:root[data-theme="dark"] .card:hover {
+  box-shadow: 7px 7px 0px rgba(124, 138, 255, 0.6);
 }
 
 .header {
@@ -17,6 +34,16 @@
 }
 
 .title {
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.titleIcon {
+  display: flex;
+  color: var(--cobalt);
 }

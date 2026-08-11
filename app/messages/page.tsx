@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getConversations } from "@/lib/messages/queries";
 import { TopNav } from "@/components/TopNav/TopNav";
+import { MailIcon } from "@/components/icons";
 import { formatRelativeTime } from "@/lib/format-time";
 import styles from "./messages.module.css";
 
@@ -36,7 +37,10 @@ export default async function MessagesPage() {
         username={viewer.username}
       />
       <div className={styles.container}>
-        <h1 className={styles.heading}>Messages</h1>
+        <h1 className={styles.heading}>
+          <MailIcon size={22} aria-hidden="true" />
+          Messages
+        </h1>
 
         {conversations.length === 0 ? (
           <p className={styles.empty}>

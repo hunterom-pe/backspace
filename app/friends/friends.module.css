@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  background: var(--bg);
 }
 
 .container {
@@ -15,6 +16,20 @@
   gap: 1.25rem;
 }
 
+.container > * {
+  animation: card-fade-in 420ms ease backwards;
+}
+
+.container > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.container > *:nth-child(2) {
+  animation-delay: 70ms;
+}
+.container > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -24,7 +39,7 @@
 
 .empty {
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   text-align: center;
   padding: 0.5rem 0;
 }
@@ -35,25 +50,27 @@
 }
 
 .acceptButton {
-  padding: 0.4rem 0.85rem;
-  border-radius: 0.5rem;
-  border: none;
-  background: var(--accent);
-  color: var(--accent-foreground);
-  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 2px solid var(--card-border);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-weight: 700;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
 .declineButton {
-  padding: 0.4rem 0.85rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 2px solid var(--card-border);
   background: var(--surface);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-weight: 700;
+  font-size: 0.82rem;
 }
 
 .declineButton:hover {
   border-color: var(--danger);
+  color: var(--danger);
 }

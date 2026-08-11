@@ -1,27 +1,49 @@
 :root {
-  --background: #f4f2ee;
+  /* Backspace neubrutalist Y2K design tokens */
+  --bg: #f3f5fa;
   --surface: #ffffff;
-  --foreground: #171717;
-  --muted: #6b7280;
-  --border: #e2e0da;
-  --accent: #cc3366;
-  --accent-foreground: #ffffff;
-  --danger: #c0392b;
-  --online: #2ecc71;
-  --away: #f1c40f;
+  --ink: #0a0a0f;
+  --cobalt: #1b2aa6;
+  --cobalt-soft: #e7eafb;
+  --magenta: #ff2e7e;
+  --cyan: #00a99a;
+  --text-secondary: #4b4f63;
+  --card-border: #0a0a0f;
+  --card-shadow: 5px 5px 0px #0a0a0f;
+
+  /* text placed directly on a solid cobalt/magenta fill; chosen per-theme
+     below so every pairing clears WCAG AA regardless of theme */
+  --on-cobalt: #ffffff;
+  /* magenta is bright enough in both themes that only dark text on it
+     reliably clears AA, so this one intentionally does not flip */
+  --chip-ink: #0a0a0f;
+
+  /* darkened slightly from a natural #c0392b — that only cleared danger-soft
+     at 4.48:1, just under the 4.5 AA text threshold */
+  --danger: #b3301f;
+  --danger-soft: #fbe4e1;
+
+  --font-display: "Unbounded", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "Space Mono", monospace;
 }
 
 :root[data-theme="dark"] {
-  --background: #0a0a0a;
-  --surface: #171717;
-  --foreground: #ededed;
-  --muted: #9ca3af;
-  --border: #2a2a2a;
-  --accent: #ff6699;
-  --accent-foreground: #171717;
-  --danger: #e57373;
-  --online: #2ecc71;
-  --away: #f1c40f;
+  --bg: #0a0a0f;
+  --surface: #15161f;
+  --ink: #f3f5fa;
+  --cobalt: #7c8aff;
+  --cobalt-soft: #1e2258;
+  --magenta: #ff5c96;
+  --cyan: #2fe6d4;
+  --text-secondary: #a6abc2;
+  --card-border: #33354a;
+  --card-shadow: 5px 5px 0px rgba(124, 138, 255, 0.45);
+
+  --on-cobalt: #0a0a0f;
+
+  --danger: #ff6b5e;
+  --danger-soft: #3a1a1a;
 }
 
 html {
@@ -43,9 +65,9 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -66,4 +88,154 @@ input,
 textarea {
   font: inherit;
   color: inherit;
+}
+
+/* Theme switch transitions smoothly instead of snapping */
+body,
+[class*="card"],
+[class*="Card"],
+button,
+input,
+textarea,
+a {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Button recipes, shared across every component via plain class names
+   alongside each component's own CSS module classes. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.3rem;
+  border-radius: 10px;
+  border: 2.5px solid var(--card-border);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px var(--card-border);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--magenta);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: 1px 1px 0px var(--magenta);
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  border: 2.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px var(--magenta);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--magenta);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: 1px 1px 0px var(--magenta);
+}
+
+.btn-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Shared form field recipe */
+.field-input {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  border: 2px solid var(--card-border);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.field-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.field-input:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 1px;
+}
+
+.field-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Card stagger fade-in, first render only */
+@keyframes card-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-in {
+  animation: card-fade-in 420ms ease backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

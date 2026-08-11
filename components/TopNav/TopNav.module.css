@@ -6,24 +6,65 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: #0a0a0f;
+  color: #f3f5fa;
+  border-bottom: 3px solid var(--magenta);
+}
+
+/* The nav stays permanently dark regardless of site theme, so it can't rely
+   on the theme-flipped --cobalt for focus rings (in light mode that's a
+   near-black-adjacent blue at ~1.8:1 on this background, failing the 3:1
+   non-text contrast minimum). Pin nav focus rings to the dark-theme cobalt
+   value, which clears 6.5:1 here in both site themes. */
+.nav :focus-visible {
+  outline: 3px solid #7c8aff;
+  outline-offset: 2px;
 }
 
 .logo {
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
   font-weight: 800;
-  color: var(--accent);
   white-space: nowrap;
+  background: linear-gradient(90deg, var(--cobalt), var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+:root[data-theme="dark"] .logo {
+  background: linear-gradient(90deg, #9ba7ff, var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.searchWrap {
+  position: relative;
+  flex: 1;
+  max-width: 28rem;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.8rem;
+  color: rgba(243, 245, 250, 0.6);
+  pointer-events: none;
 }
 
 .search {
-  flex: 1;
-  max-width: 28rem;
-  padding: 0.5rem 0.85rem;
+  width: 100%;
+  padding: 0.5rem 0.85rem 0.5rem 2.4rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--background);
+  border: 2px solid rgba(243, 245, 250, 0.25);
+  background: rgba(243, 245, 250, 0.08);
+  color: #f3f5fa;
+  font-family: var(--font-body);
+}
+
+.search::placeholder {
+  color: rgba(243, 245, 250, 0.55);
 }
 
 .search:disabled {
@@ -44,58 +85,73 @@
 }
 
 .avatarButton {
-  width: 2.25rem;
-  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
   border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--accent);
-  color: var(--accent-foreground);
+  border: 2px solid var(--magenta);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   cursor: pointer;
+  transition: transform 150ms ease;
+}
+
+.avatarButton:hover {
+  transform: translateY(-2px);
 }
 
 .dropdown {
   position: absolute;
   right: 0;
-  top: calc(100% + 0.5rem);
-  min-width: 10rem;
+  top: calc(100% + 0.6rem);
+  min-width: 11rem;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  color: var(--ink);
+  border: 3px solid var(--card-border);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .dropdownLabel {
   padding: 0.35rem 0.5rem;
-  font-size: 0.8rem;
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--card-border);
   margin-bottom: 0.25rem;
 }
 
 .dropdownItem {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   width: 100%;
   text-align: left;
-  padding: 0.4rem 0.5rem;
-  border-radius: 0.35rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
   border: none;
   background: transparent;
   cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
 .dropdownItem:hover {
-  background: var(--background);
+  background: var(--cobalt-soft);
 }
 
 @media (max-width: 640px) {
-  .search {
+  .searchWrap {
     display: none;
   }
 }

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  background: var(--bg);
 }
 
 .container {
@@ -16,13 +17,17 @@
 }
 
 .heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
 }
 
 .empty {
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   text-align: center;
   padding: 2rem 0;
 }
@@ -34,19 +39,47 @@
   list-style: none;
 }
 
+.list > * {
+  animation: card-fade-in 380ms ease backwards;
+}
+
+.list > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.list > *:nth-child(2) {
+  animation-delay: 50ms;
+}
+.list > *:nth-child(3) {
+  animation-delay: 100ms;
+}
+.list > *:nth-child(4) {
+  animation-delay: 150ms;
+}
+.list > *:nth-child(n + 5) {
+  animation-delay: 200ms;
+}
+
 .item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
+  border-radius: 12px;
+  border: 2.5px solid var(--card-border);
   background: var(--surface);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.item:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--card-border);
 }
 
 .unread {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  border-color: var(--cobalt);
+  background: var(--cobalt-soft);
 }
 
 .avatar,
@@ -62,8 +95,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -86,21 +120,22 @@
 }
 
 .itemTime {
-  font-size: 0.75rem;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 
 .itemPreview {
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .unread .itemPreview {
-  color: var(--foreground);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -110,9 +145,11 @@
   height: 1.4rem;
   padding: 0 0.4rem;
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-foreground);
-  font-size: 0.72rem;
+  border: 2px solid var(--chip-ink);
+  background: var(--magenta);
+  color: var(--chip-ink);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 700;
   display: flex;
   align-items: center;

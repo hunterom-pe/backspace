@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { markAllNotificationsRead } from "@/lib/notifications/actions";
 import { formatRelativeTime } from "@/lib/format-time";
+import { BellIcon } from "@/components/icons";
 import type { AppNotification, NotificationType } from "@/lib/notifications/queries";
 import styles from "./NotificationBell.module.css";
 
@@ -145,7 +146,7 @@ export function NotificationBell({
   }
 
   return (
-    <div className={styles.wrap} ref={ref}>
+    <div ref={ref} className={styles.wrap}>
       <button
         type="button"
         className={styles.bell}
@@ -153,7 +154,7 @@ export function NotificationBell({
         aria-label="Notifications"
         aria-expanded={open}
       >
-        🔔
+        <BellIcon size={19} aria-hidden="true" />
         {unreadCount > 0 ? (
           <span className={styles.badge}>{unreadCount > 9 ? "9+" : unreadCount}</span>
         ) : null}
@@ -176,8 +177,17 @@ export function NotificationBell({
                       className={styles.item}
                       onClick={() => setOpen(false)}
                     >
-                      <span className={styles.itemText}>{label}</span>
-                      <span className={styles.itemTime}>{formatRelativeTime(n.created_at)}</span>
+                      {!n.read_at ? (
+                        <span className={styles.unreadDot} aria-hidden="true" />
+                      ) : (
+                        <span className={styles.unreadDotSpacer} aria-hidden="true" />
+                      )}
+                      <span className={styles.itemBody}>
+                        <span className={styles.itemText}>{label}</span>
+                        <span className={styles.itemTime}>
+                          {formatRelativeTime(n.created_at)}
+                        </span>
+                      </span>
                     </Link>
                   </li>
                 );

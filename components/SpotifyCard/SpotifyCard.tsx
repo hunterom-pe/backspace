@@ -1,9 +1,25 @@
 import { Card } from "@/components/Card/Card";
+import { MusicNoteIcon } from "@/components/icons";
 import styles from "./SpotifyCard.module.css";
+
+function EqualizerBars() {
+  return (
+    <span className={styles.equalizer} aria-hidden="true">
+      <span className={styles.bar} />
+      <span className={styles.bar} />
+      <span className={styles.bar} />
+      <span className={styles.bar} />
+    </span>
+  );
+}
 
 export function SpotifyCard({ embedUrl }: { embedUrl: string | null }) {
   return (
-    <Card title="Now Playing">
+    <Card
+      title="Now Playing"
+      icon={<MusicNoteIcon size={17} aria-hidden="true" />}
+      action={embedUrl ? <EqualizerBars /> : null}
+    >
       {embedUrl ? (
         <iframe
           className={styles.frame}

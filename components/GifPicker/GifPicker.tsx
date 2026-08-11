@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { XIcon } from "@/components/icons";
 import styles from "./GifPicker.module.css";
 
 type Gif = { id: string; title: string; previewUrl: string; url: string };
@@ -53,7 +54,7 @@ export function GifPicker({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search GIFs..."
-          className={styles.search}
+          className={`field-input ${styles.search}`}
           autoFocus
         />
         <button
@@ -62,7 +63,7 @@ export function GifPicker({
           className={styles.close}
           aria-label="Close GIF picker"
         >
-          ×
+          <XIcon size={14} aria-hidden="true" />
         </button>
       </div>
 

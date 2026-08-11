@@ -3,6 +3,7 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
+  background: var(--bg);
 }
 
 .container {
@@ -13,8 +14,9 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
+  border-left: 3px solid var(--card-border);
+  border-right: 3px solid var(--card-border);
+  background: var(--surface);
 }
 
 .header {
@@ -22,19 +24,19 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 3px solid var(--card-border);
   background: var(--surface);
 }
 
 .backLink {
   font-size: 0.85rem;
-  color: var(--muted);
-  font-weight: 600;
+  color: var(--text-secondary);
+  font-weight: 700;
   flex-shrink: 0;
 }
 
 .backLink:hover {
-  color: var(--accent);
+  color: var(--cobalt);
 }
 
 .partnerLink {
@@ -57,12 +59,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.75rem;
 }
 
 .partnerName {
+  font-family: var(--font-display);
   font-weight: 700;
 }

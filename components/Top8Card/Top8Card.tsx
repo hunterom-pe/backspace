@@ -9,14 +9,20 @@ export function Top8Card({ slots }: { slots: (Profile | null)[] }) {
       <div className={styles.grid}>
         {slots.map((friend, i) =>
           friend ? (
-            <Link key={friend.id} href={`/profile/${friend.username}`} className={styles.slot}>
+            <Link
+              key={friend.id}
+              href={`/profile/${friend.username}`}
+              className={`${styles.slot} ${i === 0 ? styles.slotFirst : ""}`}
+            >
+              <span
+                className={`${styles.ribbon} ${i === 0 ? styles.ribbonFirst : ""}`}
+                aria-hidden="true"
+              >
+                {i + 1}
+              </span>
               {friend.avatar_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={friend.avatar_url}
-                  alt=""
-                  className={styles.avatar}
-                />
+                <img src={friend.avatar_url} alt="" className={styles.avatar} />
               ) : (
                 <div className={styles.avatarFallback}>
                   {(friend.display_name ?? friend.username).slice(0, 2).toUpperCase()}

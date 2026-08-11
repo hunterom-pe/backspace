@@ -1,21 +1,40 @@
 .dot {
   position: absolute;
-  right: 0.1rem;
-  bottom: 0.1rem;
-  width: 1rem;
-  height: 1rem;
+  right: 0.15rem;
+  bottom: 0.15rem;
+  width: 1.05rem;
+  height: 1.05rem;
   border-radius: 50%;
-  border: 2px solid var(--surface);
+  border: 3px solid var(--surface);
 }
 
 .online {
-  background: var(--online);
+  background: var(--cyan);
+  animation: presence-pulse 2.2s ease-in-out infinite;
 }
 
 .away {
-  background: var(--away);
+  background: var(--cyan);
+  opacity: 0.5;
 }
 
 .offline {
-  background: var(--muted);
+  background: var(--text-secondary);
+  opacity: 0.6;
+}
+
+@keyframes presence-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--cyan) 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--cyan) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .online {
+    animation: none;
+  }
 }

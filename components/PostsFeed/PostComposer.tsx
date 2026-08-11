@@ -3,6 +3,7 @@
 import { useState, useTransition, type FormEvent } from "react";
 import { createPost } from "@/lib/posts/actions";
 import { GifPicker } from "@/components/GifPicker/GifPicker";
+import { GifFrameIcon, XIcon } from "@/components/icons";
 import styles from "./PostsFeed.module.css";
 
 export function PostComposer() {
@@ -33,7 +34,7 @@ export function PostComposer() {
       {error ? <p className={styles.composerError}>{error}</p> : null}
 
       <textarea
-        className={styles.input}
+        className={`field-input ${styles.input}`}
         placeholder="What's on your mind?"
         rows={3}
         value={content}
@@ -46,6 +47,7 @@ export function PostComposer() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={gifUrl} alt="Selected GIF" className={styles.gifPreviewImage} />
           <button type="button" className={styles.removeGif} onClick={() => setGifUrl(null)}>
+            <XIcon size={12} aria-hidden="true" />
             Remove GIF
           </button>
         </div>
@@ -57,11 +59,12 @@ export function PostComposer() {
           className={styles.gifToggle}
           onClick={() => setShowPicker((v) => !v)}
         >
+          <GifFrameIcon size={16} aria-hidden="true" />
           GIF
         </button>
         <button
           type="submit"
-          className={styles.submit}
+          className="btn-primary"
           disabled={isPending || (!content.trim() && !gifUrl)}
         >
           {isPending ? "Posting..." : "Post"}

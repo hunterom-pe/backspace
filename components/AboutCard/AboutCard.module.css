@@ -3,7 +3,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--muted);
+  color: var(--text-secondary);
   margin-bottom: 0.2rem;
 }
 
@@ -11,5 +11,5 @@
   font-size: 0.9rem;
   line-height: 1.4;
   white-space: pre-wrap;
-  color: var(--foreground);
+  color: var(--ink);
 }

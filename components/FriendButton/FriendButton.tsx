@@ -1,4 +1,5 @@
 import { sendFriendRequest, respondToFriendRequest, removeFriendship } from "@/lib/friends/actions";
+import { UserPlusIcon } from "@/components/icons";
 import type { FriendshipState } from "@/lib/friends/queries";
 import styles from "./FriendButton.module.css";
 
@@ -31,7 +32,7 @@ export function FriendButton({
       <form action={removeFriendship}>
         <input type="hidden" name="friendship_id" value={state.friendshipId} />
         <input type="hidden" name="redirect_to" value={redirectTo} />
-        <button type="submit" className={styles.secondaryButton}>
+        <button type="submit" className="btn-secondary">
           Request sent — cancel
         </button>
       </form>
@@ -45,7 +46,7 @@ export function FriendButton({
           <input type="hidden" name="friendship_id" value={state.friendshipId} />
           <input type="hidden" name="decision" value="accept" />
           <input type="hidden" name="redirect_to" value={redirectTo} />
-          <button type="submit" className={styles.primaryButton}>
+          <button type="submit" className="btn-primary">
             Accept
           </button>
         </form>
@@ -53,7 +54,7 @@ export function FriendButton({
           <input type="hidden" name="friendship_id" value={state.friendshipId} />
           <input type="hidden" name="decision" value="reject" />
           <input type="hidden" name="redirect_to" value={redirectTo} />
-          <button type="submit" className={styles.secondaryButton}>
+          <button type="submit" className="btn-secondary">
             Decline
           </button>
         </form>
@@ -65,7 +66,8 @@ export function FriendButton({
     <form action={sendFriendRequest}>
       <input type="hidden" name="recipient_id" value={targetId} />
       <input type="hidden" name="redirect_to" value={redirectTo} />
-      <button type="submit" className={styles.primaryButton}>
+      <button type="submit" className="btn-primary">
+        <UserPlusIcon size={16} aria-hidden="true" />
         Add Friend
       </button>
     </form>

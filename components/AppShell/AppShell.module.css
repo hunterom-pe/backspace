@@ -32,6 +32,37 @@
   min-width: 0;
 }
 
+/* Single subtle staggered entrance on first paint — CSS animations don't
+   retrigger on re-render since these nodes stay mounted, only on fresh
+   navigation to the page. */
+.sidebar > *,
+.main > * {
+  animation: card-fade-in 420ms ease backwards;
+}
+
+.sidebar > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.sidebar > *:nth-child(2) {
+  animation-delay: 70ms;
+}
+.sidebar > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+.sidebar > *:nth-child(4) {
+  animation-delay: 210ms;
+}
+
+.main > *:nth-child(1) {
+  animation-delay: 35ms;
+}
+.main > *:nth-child(2) {
+  animation-delay: 105ms;
+}
+.main > *:nth-child(3) {
+  animation-delay: 175ms;
+}
+
 @media (max-width: 860px) {
   .body {
     grid-template-columns: 1fr;

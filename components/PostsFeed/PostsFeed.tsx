@@ -4,6 +4,7 @@ import { PostComposer } from "./PostComposer";
 import { LikeButton } from "./LikeButton";
 import { deletePost } from "@/lib/posts/actions";
 import { formatRelativeTime } from "@/lib/format-time";
+import { XIcon } from "@/components/icons";
 import type { FeedPost } from "@/lib/posts/queries";
 import styles from "./PostsFeed.module.css";
 
@@ -45,8 +46,12 @@ export function PostsFeed({ viewerId, posts }: { viewerId: string; posts: FeedPo
                   {isOwn ? (
                     <form action={deletePost}>
                       <input type="hidden" name="post_id" value={post.id} />
-                      <button type="submit" className={styles.deleteButton}>
-                        Delete
+                      <button
+                        type="submit"
+                        className={styles.deleteButton}
+                        aria-label="Delete post"
+                      >
+                        <XIcon size={13} aria-hidden="true" />
                       </button>
                     </form>
                   ) : null}

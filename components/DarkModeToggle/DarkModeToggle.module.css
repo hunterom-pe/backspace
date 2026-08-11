@@ -2,16 +2,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 10px;
+  border: 2px solid rgba(243, 245, 250, 0.25);
+  background: rgba(243, 245, 250, 0.08);
+  color: #f3f5fa;
   cursor: pointer;
-  font-size: 1.1rem;
-  line-height: 1;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease;
 }
 
 .toggle:hover {
-  border-color: var(--accent);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
 }

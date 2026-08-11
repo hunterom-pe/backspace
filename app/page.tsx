@@ -29,10 +29,10 @@ export default async function Home() {
           username.
         </p>
         <div className={styles.ctas}>
-          <Link href="/signup" className={styles.primary}>
+          <Link href="/signup" className="btn-primary">
             Sign up
           </Link>
-          <Link href="/login" className={styles.secondary}>
+          <Link href="/login" className="btn-secondary">
             Log in
           </Link>
         </div>

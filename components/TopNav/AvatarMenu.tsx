@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { MailIcon } from "@/components/icons";
 import styles from "./TopNav.module.css";
 
 export function AvatarMenu({
@@ -64,6 +65,7 @@ export function AvatarMenu({
             role="menuitem"
             onClick={() => setOpen(false)}
           >
+            <MailIcon size={16} aria-hidden="true" />
             Messages
           </Link>
           <form action={onLogout}>

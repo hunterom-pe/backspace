@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { MoonIcon, SunIcon } from "@/components/icons";
 import styles from "./DarkModeToggle.module.css";
 
 const THEME_EVENT = "backspace-theme-change";
@@ -37,7 +38,7 @@ export function DarkModeToggle() {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
-      {isDark ? "☀️" : "🌙"}
+      {isDark ? <SunIcon size={18} aria-hidden="true" /> : <MoonIcon size={18} aria-hidden="true" />}
     </button>
   );
 }

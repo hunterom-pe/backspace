@@ -19,7 +19,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
   return (
     <div className={styles.wrap}>
       <div className={styles.card}>
-        <p className={styles.title}>Backspace</p>
+        <p className={styles.logo}>Backspace</p>
         <p className={styles.subtitle}>Log in to your profile.</p>
 
         {error ? <p className={styles.error}>{error}</p> : null}
@@ -27,7 +27,14 @@ export default async function LoginPage(props: PageProps<"/login">) {
         <form className={styles.form} action={login}>
           <div className={styles.field}>
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" autoComplete="email" required />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              className="field-input"
+              required
+            />
           </div>
 
           <div className={styles.field}>
@@ -37,11 +44,12 @@ export default async function LoginPage(props: PageProps<"/login">) {
               name="password"
               type="password"
               autoComplete="current-password"
+              className="field-input"
               required
             />
           </div>
 
-          <button className={styles.submit} type="submit">
+          <button className={`btn-primary ${styles.submit}`} type="submit">
             Log in
           </button>
         </form>

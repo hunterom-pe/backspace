@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { setTop8 } from "@/lib/top8/actions";
 import { Card } from "@/components/Card/Card";
+import { PlusIcon, XIcon, GripIcon } from "@/components/icons";
 import type { Profile } from "@/lib/types";
 import styles from "./Top8Editor.module.css";
 
@@ -68,7 +69,10 @@ export function Top8Editor({
   }
 
   return (
-    <Card title="Top 8" action={isPending ? <span className={styles.saving}>Saving...</span> : null}>
+    <Card
+      title="Top 8"
+      action={isPending ? <span className={styles.saving}>Saving...</span> : null}
+    >
       {error ? <p className={styles.error}>{error}</p> : null}
       <div className={styles.grid}>
         {slots.map((slot, i) => (
@@ -80,11 +84,18 @@ export function Top8Editor({
           >
             {slot ? (
               <div
-                className={styles.filled}
+                className={`${styles.filled} ${i === 0 ? styles.filledFirst : ""}`}
                 draggable
                 onDragStart={() => setDragIndex(i)}
                 onDragEnd={() => setDragIndex(null)}
               >
+                <span
+                  className={`${styles.ribbon} ${i === 0 ? styles.ribbonFirst : ""}`}
+                  aria-hidden="true"
+                >
+                  {i + 1}
+                </span>
+                <GripIcon size={13} className={styles.gripHandle} aria-hidden="true" />
                 <Link href={`/profile/${slot.username}`} className={styles.friendLink}>
                   {slot.avatar_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -102,7 +113,7 @@ export function Top8Editor({
                   onClick={() => handleRemove(i)}
                   aria-label={`Remove ${slot.display_name ?? slot.username} from Top 8`}
                 >
-                  ×
+                  <XIcon size={11} strokeWidth={3} aria-hidden="true" />
                 </button>
               </div>
             ) : (
@@ -112,7 +123,7 @@ export function Top8Editor({
                 onClick={() => setPickerIndex(pickerIndex === i ? null : i)}
                 aria-label="Add friend to Top 8"
               >
-                +
+                <PlusIcon size={20} aria-hidden="true" />
               </button>
             )}
 

@@ -4,6 +4,7 @@ import { useState, useTransition, type FormEvent } from "react";
 import { sendMessage } from "@/lib/messages/actions";
 import { GifPicker } from "@/components/GifPicker/GifPicker";
 import { formatRelativeTime } from "@/lib/format-time";
+import { GifFrameIcon, SendIcon, XIcon } from "@/components/icons";
 import type { ThreadMessage } from "@/lib/messages/queries";
 import styles from "./MessageThread.module.css";
 
@@ -85,7 +86,7 @@ export function MessageThread({
         {error ? <p className={styles.composerError}>{error}</p> : null}
 
         <textarea
-          className={styles.input}
+          className={`field-input ${styles.input}`}
           placeholder="Write a message..."
           rows={2}
           value={content}
@@ -98,6 +99,7 @@ export function MessageThread({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={gifUrl} alt="Selected GIF" className={styles.gifPreviewImage} />
             <button type="button" className={styles.removeGif} onClick={() => setGifUrl(null)}>
+              <XIcon size={12} aria-hidden="true" />
               Remove GIF
             </button>
           </div>
@@ -109,13 +111,15 @@ export function MessageThread({
             className={styles.gifToggle}
             onClick={() => setShowPicker((v) => !v)}
           >
+            <GifFrameIcon size={16} aria-hidden="true" />
             GIF
           </button>
           <button
             type="submit"
-            className={styles.submit}
+            className="btn-primary"
             disabled={isPending || (!content.trim() && !gifUrl)}
           >
+            <SendIcon size={15} aria-hidden="true" />
             Send
           </button>
         </div>

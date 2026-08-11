@@ -3,6 +3,7 @@ import { Card } from "@/components/Card/Card";
 import { WallComposer } from "./WallComposer";
 import { deleteWallComment } from "@/lib/wall/actions";
 import { formatRelativeTime } from "@/lib/format-time";
+import { MessageBubbleIcon, XIcon } from "@/components/icons";
 import type { WallComment } from "@/lib/wall/queries";
 import styles from "./WallCard.module.css";
 
@@ -18,7 +19,7 @@ export function WallCard({
   const isWallOwner = viewerId === profileId;
 
   return (
-    <Card title="Wall">
+    <Card title="Wall" icon={<MessageBubbleIcon size={17} aria-hidden="true" />}>
       <WallComposer profileId={profileId} />
 
       {comments.length === 0 ? (
@@ -58,8 +59,12 @@ export function WallCard({
                   {canDelete ? (
                     <form action={deleteWallComment}>
                       <input type="hidden" name="comment_id" value={comment.id} />
-                      <button type="submit" className={styles.deleteButton}>
-                        Delete
+                      <button
+                        type="submit"
+                        className={styles.deleteButton}
+                        aria-label="Delete comment"
+                      >
+                        <XIcon size={13} aria-hidden="true" />
                       </button>
                     </form>
                   ) : null}

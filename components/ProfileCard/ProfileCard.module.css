@@ -1,14 +1,41 @@
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+  border: 3px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  min-width: 0;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px var(--card-border);
+  }
+}
+
+:root[data-theme="dark"] .card:hover {
+  box-shadow: 7px 7px 0px rgba(124, 138, 255, 0.6);
+}
+
+.banner {
+  height: 4.5rem;
+  background: linear-gradient(120deg, var(--cobalt), var(--magenta));
+}
+
+.body {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 0.4rem;
-  min-width: 0;
+  padding: 0 1.5rem 1.5rem;
+  margin-top: -2.75rem;
 }
 
 .avatarWrap {
@@ -21,7 +48,8 @@
   height: 5.5rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--border);
+  border: 4px solid var(--surface);
+  display: block;
 }
 
 .avatarFallback {
@@ -31,11 +59,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.5rem;
-  border: 2px solid var(--border);
+  border: 4px solid var(--surface);
 }
 
 .identity {
@@ -44,42 +73,51 @@
 }
 
 .name {
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.05rem;
 }
 
 .username {
-  color: var(--muted);
-  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
 }
 
 .tagline {
   margin-top: 0.3rem;
   font-size: 0.85rem;
-  color: var(--foreground);
+  color: var(--ink);
 }
 
 .location {
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--text-secondary);
 }
 
 .mood {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+  margin-top: 0.6rem;
+  display: inline-block;
+  align-self: center;
+  font-size: 0.85rem;
   font-style: italic;
-  padding: 0.4rem 0.75rem;
-  border-radius: 0.5rem;
-  background: var(--background);
-  border: 1px solid var(--border);
-  width: 100%;
+  padding: 0.45rem 0.9rem;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 2px dashed var(--card-border);
+  transform: rotate(-2deg);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .editLink {
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent);
+  font-weight: 700;
+  color: var(--cobalt);
 }
 
 .editLink:hover {

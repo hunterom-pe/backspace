@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { toggleLike } from "@/lib/posts/actions";
+import { HeartIcon } from "@/components/icons";
 import styles from "./PostsFeed.module.css";
 
 export function LikeButton({
@@ -42,7 +43,8 @@ export function LikeButton({
       disabled={isPending}
       aria-pressed={liked}
     >
-      {liked ? "❤" : "🤍"} {count}
+      <HeartIcon size={15} filled={liked} aria-hidden="true" />
+      <span className={styles.likeCount}>{count}</span>
     </button>
   );
 }
