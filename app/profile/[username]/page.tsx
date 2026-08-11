@@ -10,6 +10,7 @@ import { WallCard } from "@/components/WallCard/WallCard";
 import { FriendButton } from "@/components/FriendButton/FriendButton";
 import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
 import { getTop8 } from "@/lib/top8/queries";
+import { getWallComments } from "@/lib/wall/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 
 export default async function ProfilePage(props: PageProps<"/profile/[username]">) {
@@ -45,10 +46,11 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
   }
 
   const isOwnProfile = profile.id === user.id;
-  const [friendshipState, top8Slots, friendsData] = await Promise.all([
+  const [friendshipState, top8Slots, friendsData, wallComments] = await Promise.all([
     isOwnProfile ? Promise.resolve(null) : getFriendshipState(supabase, user.id, profile.id),
     getTop8(supabase, profile.id),
     isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
+    getWallComments(supabase, profile.id),
   ]);
 
   return (
@@ -84,7 +86,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       main={
         <>
           <SpotifyCard embedUrl={profile.spotify_embed_url} />
-          <WallCard />
+          <WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />
         </>
       }
     />

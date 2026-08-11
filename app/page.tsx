@@ -9,6 +9,7 @@ import { WallCard } from "@/components/WallCard/WallCard";
 import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
 import { getTop8 } from "@/lib/top8/queries";
 import { getFriendsPageData } from "@/lib/friends/queries";
+import { getWallComments } from "@/lib/wall/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import styles from "./page.module.css";
 
@@ -55,9 +56,10 @@ export default async function Home() {
   }
 
   const name = profile.display_name || profile.username;
-  const [top8Slots, { friends }] = await Promise.all([
+  const [top8Slots, { friends }, wallComments] = await Promise.all([
     getTop8(supabase, user.id),
     getFriendsPageData(supabase, user.id),
+    getWallComments(supabase, user.id),
   ]);
 
   return (
@@ -77,7 +79,7 @@ export default async function Home() {
       main={
         <>
           <SpotifyCard embedUrl={profile.spotify_embed_url} />
-          <WallCard />
+          <WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />
           <PostsFeed />
         </>
       }

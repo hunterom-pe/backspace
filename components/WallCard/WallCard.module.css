@@ -4,6 +4,11 @@
   gap: 0.5rem;
 }
 
+.composerError {
+  font-size: 0.8rem;
+  color: var(--danger);
+}
+
 .input {
   resize: none;
   padding: 0.6rem 0.75rem;
@@ -12,19 +17,52 @@
   background: var(--background);
 }
 
-.input:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
+.gifPreview {
+  position: relative;
+  width: fit-content;
+}
+
+.gifPreviewImage {
+  max-width: 10rem;
+  max-height: 10rem;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+.removeGif {
+  margin-top: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.composerActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gifToggle {
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .submit {
-  align-self: flex-end;
   padding: 0.4rem 1rem;
   border-radius: 0.5rem;
   border: none;
   background: var(--accent);
   color: var(--accent-foreground);
   font-weight: 600;
+  cursor: pointer;
 }
 
 .submit:disabled {
@@ -51,13 +89,77 @@
   border-radius: 0.5rem;
   background: var(--background);
   border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.commentAuthorLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.commentAvatar,
+.commentAvatarFallback {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.commentAvatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 700;
+  font-size: 0.7rem;
 }
 
 .commentAuthor {
+  display: block;
   font-weight: 700;
   font-size: 0.85rem;
 }
 
+.commentTime {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
 .commentBody {
   font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.commentGif {
+  max-width: 100%;
+  max-height: 16rem;
+  border-radius: 0.5rem;
+}
+
+.deleteButton {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.deleteButton:hover {
+  color: var(--danger);
 }
