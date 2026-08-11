@@ -3,6 +3,7 @@ import { Unbounded, Manrope, Space_Mono } from "next/font/google";
 import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import { createClient } from "@/lib/supabase/server";
 import { PresenceProvider } from "@/components/Presence/PresenceProvider";
+import { Footer } from "@/components/Footer/Footer";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -61,6 +62,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         {user ? <PresenceProvider viewerId={user.id}>{children}</PresenceProvider> : children}
+        <Footer />
       </body>
     </html>
   );
