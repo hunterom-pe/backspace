@@ -117,7 +117,15 @@ export function Top8Editor({
             )}
 
             {pickerIndex === i ? (
-              <div className={styles.picker}>
+              <div
+                className={`${styles.picker} ${
+                  i % 4 === 0
+                    ? styles.pickerAlignLeft
+                    : i % 4 === 3
+                      ? styles.pickerAlignRight
+                      : ""
+                }`}
+              >
                 {pickableFriends.length === 0 ? (
                   <p className={styles.pickerEmpty}>
                     {availableFriends.length === 0

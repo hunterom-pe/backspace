@@ -8,6 +8,7 @@
   align-items: center;
   text-align: center;
   gap: 0.4rem;
+  min-width: 0;
 }
 
 .avatarWrap {

@@ -51,5 +51,20 @@ comments, mood status, posts, messaging, and notifications — built with Next.j
 
 ## Deployment
 
-Deployed on Netlify, connected to this repository. Set the same environment variables
-from `.env.local` in the Netlify site's build settings.
+Deployed on Netlify via [`netlify.toml`](netlify.toml), which runs `npm run build` and
+applies [`@netlify/plugin-nextjs`](https://github.com/netlify/next-runtime) for SSR,
+Server Actions, and route handler support (this isn't a static export — those all need
+a server runtime). Node version is pinned to 22 in both `netlify.toml` and `.nvmrc`,
+comfortably above Next.js 16's minimum of 20.9.
+
+To deploy:
+
+1. In Netlify, "Add new site" → "Import an existing project" → pick this repo. Netlify
+   reads `netlify.toml` automatically; no build settings need to be entered by hand.
+2. In the site's **Environment variables** settings, add the same four variables from
+   `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
+   `SUPABASE_SECRET_KEY`, `GIPHY_API_KEY`).
+3. In the Supabase dashboard, add the deployed Netlify URL to **Authentication → URL
+   Configuration** (Site URL and Redirect URLs) so email confirmation links and OAuth
+   redirects resolve correctly in production instead of pointing at `localhost`.
+4. Deploy. Every subsequent push to the connected branch redeploys automatically.
