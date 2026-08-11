@@ -8,6 +8,7 @@ import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { FriendButton } from "@/components/FriendButton/FriendButton";
+import { MessageLink } from "@/components/MessageLink/MessageLink";
 import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
 import { getTop8 } from "@/lib/top8/queries";
 import { getWallComments } from "@/lib/wall/queries";
@@ -64,11 +65,14 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             isOwnProfile={isOwnProfile}
             action={
               friendshipState ? (
-                <FriendButton
-                  targetId={profile.id}
-                  state={friendshipState}
-                  redirectTo={`/profile/${profile.username}`}
-                />
+                <>
+                  <FriendButton
+                    targetId={profile.id}
+                    state={friendshipState}
+                    redirectTo={`/profile/${profile.username}`}
+                  />
+                  <MessageLink username={profile.username} />
+                </>
               ) : null
             }
           />

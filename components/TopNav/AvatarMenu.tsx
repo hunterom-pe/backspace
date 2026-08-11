@@ -58,6 +58,14 @@ export function AvatarMenu({
           >
             Friends
           </Link>
+          <Link
+            href="/messages"
+            className={styles.dropdownItem}
+            role="menuitem"
+            onClick={() => setOpen(false)}
+          >
+            Messages
+          </Link>
           <form action={onLogout}>
             <button type="submit" className={styles.dropdownItem} role="menuitem">
               Log out
