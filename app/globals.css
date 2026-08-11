@@ -229,6 +229,25 @@ a {
   animation: card-fade-in 420ms ease backwards;
 }
 
+/* Two cards side by side, e.g. Now Playing + Visitors. Stacks on narrow
+   containers since each half needs some minimum breathing room. */
+.two-col-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.two-col-row > * {
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .two-col-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

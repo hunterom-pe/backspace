@@ -6,6 +6,7 @@ import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
+import { HitCounter } from "@/components/HitCounter/HitCounter";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
 import { getTop8 } from "@/lib/top8/queries";
@@ -92,7 +93,10 @@ export default async function Home() {
       }
       main={
         <>
-          <SpotifyCard embedUrl={profile.spotify_embed_url} />
+          <div className="two-col-row">
+            <SpotifyCard embedUrl={profile.spotify_embed_url} />
+            <HitCounter views={profile.profile_views} />
+          </div>
           <WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />
           <PostsFeed viewerId={user.id} posts={feedPosts} />
         </>

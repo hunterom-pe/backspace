@@ -7,6 +7,7 @@ import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { Top8Card } from "@/components/Top8Card/Top8Card";
 import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
+import { HitCounter } from "@/components/HitCounter/HitCounter";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { FriendButton } from "@/components/FriendButton/FriendButton";
 import { MessageLink } from "@/components/MessageLink/MessageLink";
@@ -128,7 +129,10 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       }
       main={
         <>
-          <SpotifyCard embedUrl={profile.spotify_embed_url} />
+          <div className="two-col-row">
+            <SpotifyCard embedUrl={profile.spotify_embed_url} />
+            <HitCounter views={profile.profile_views} />
+          </div>
           <WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />
         </>
       }
