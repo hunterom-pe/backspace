@@ -21,19 +21,22 @@ export function Top8Card({ slots }: { slots: (Profile | null)[] }) {
               >
                 {i + 1}
               </span>
-              {friend.avatar_url ? (
-                <Image
-                  src={friend.avatar_url}
-                  alt=""
-                  width={200}
-                  height={200}
-                  className={styles.avatar}
-                />
-              ) : (
-                <div className={styles.avatarFallback}>
-                  {(friend.display_name ?? friend.username).slice(0, 2).toUpperCase()}
-                </div>
-              )}
+              <span className={styles.photoWrap}>
+                {friend.avatar_url ? (
+                  <Image
+                    src={friend.avatar_url}
+                    alt=""
+                    width={200}
+                    height={200}
+                    className={styles.avatar}
+                  />
+                ) : (
+                  <div className={styles.avatarFallback}>
+                    {(friend.display_name ?? friend.username).slice(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <span className={styles.tapeCorner} aria-hidden="true" />
+              </span>
               <span className={styles.name}>{friend.display_name ?? friend.username}</span>
             </Link>
           ) : (

@@ -98,19 +98,22 @@ export function Top8Editor({
                 </span>
                 <GripIcon size={13} className={styles.gripHandle} aria-hidden="true" />
                 <Link href={`/profile/${slot.username}`} className={styles.friendLink}>
-                  {slot.avatar_url ? (
-                    <Image
-                      src={slot.avatar_url}
-                      alt=""
-                      width={200}
-                      height={200}
-                      className={styles.avatar}
-                    />
-                  ) : (
-                    <div className={styles.avatarFallback}>
-                      {(slot.display_name ?? slot.username).slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
+                  <span className={styles.photoWrap}>
+                    {slot.avatar_url ? (
+                      <Image
+                        src={slot.avatar_url}
+                        alt=""
+                        width={200}
+                        height={200}
+                        className={styles.avatar}
+                      />
+                    ) : (
+                      <div className={styles.avatarFallback}>
+                        {(slot.display_name ?? slot.username).slice(0, 2).toUpperCase()}
+                      </div>
+                    )}
+                    <span className={styles.tapeCorner} aria-hidden="true" />
+                  </span>
                   <span className={styles.name}>{slot.display_name ?? slot.username}</span>
                 </Link>
                 <button

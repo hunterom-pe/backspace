@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/AppShell/AppShell";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
+import { StampStrip } from "@/components/StampStrip/StampStrip";
 import { Top8Card } from "@/components/Top8Card/Top8Card";
 import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
@@ -116,6 +117,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             }
           />
           <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
+          <StampStrip />
           {isOwnProfile && friendsData ? (
             <Top8Editor
               initialSlots={top8Slots}

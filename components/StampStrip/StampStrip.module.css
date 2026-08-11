@@ -1,0 +1,45 @@
+.strip {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 0.5rem;
+}
+
+.stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  width: 4.4rem;
+  padding: 0.5rem 0.3rem 0.4rem;
+  background: var(--surface);
+  border: 2.5px solid var(--card-border);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0px var(--card-border);
+  text-align: center;
+}
+
+.stamp:nth-child(1) {
+  transform: rotate(-3deg);
+  color: var(--cobalt);
+}
+
+.stamp:nth-child(2) {
+  transform: rotate(2deg);
+  color: var(--magenta);
+}
+
+.stamp:nth-child(3) {
+  transform: rotate(-3deg);
+  color: var(--cyan);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  color: var(--text-secondary);
+}

@@ -23,6 +23,13 @@
   --danger: #b3301f;
   --danger-soft: #fbe4e1;
 
+  /* Precomputed glow colors for box-shadow rings (Top 8 rank-1 badge,
+     presence pulse). color-mix() inside box-shadow renders as a hugely
+     oversized, blurred halo in some engines instead of a crisp ring —
+     static rgba() avoids that entirely. */
+  --cobalt-glow: rgba(27, 42, 166, 0.3);
+  --cyan-glow: rgba(0, 169, 154, 0.55);
+
   --font-display: "Unbounded", sans-serif;
   --font-body: "Manrope", sans-serif;
   --font-mono: "Space Mono", monospace;
@@ -44,6 +51,9 @@
 
   --danger: #ff6b5e;
   --danger-soft: #3a1a1a;
+
+  --cobalt-glow: rgba(124, 138, 255, 0.3);
+  --cyan-glow: rgba(47, 230, 212, 0.55);
 }
 
 html {

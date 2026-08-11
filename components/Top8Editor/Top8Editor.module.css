@@ -45,12 +45,20 @@
   padding: 0.3rem;
 }
 
+.photoWrap {
+  position: relative;
+  display: block;
+  width: 62%;
+}
+
 .avatar,
 .avatarFallback {
-  width: 62%;
+  width: 100%;
   aspect-ratio: 1;
   border-radius: 0.4rem;
   object-fit: cover;
+  border: 2.5px solid var(--surface);
+  transform: rotate(-2deg);
 }
 
 .avatarFallback {
@@ -62,6 +70,18 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.75rem;
+}
+
+.tapeCorner {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.1rem;
+  width: 0.9rem;
+  height: 0.7rem;
+  background: color-mix(in srgb, var(--magenta) 70%, transparent);
+  border: 1.5px solid var(--card-border);
+  transform: rotate(22deg);
+  z-index: 1;
 }
 
 .name {
@@ -105,7 +125,7 @@
   font-size: 0.9rem;
   box-shadow:
     2px 2px 0px var(--chip-ink),
-    0 0 0 5px color-mix(in srgb, var(--cobalt) 30%, transparent);
+    0 0 0 5px var(--cobalt-glow);
 }
 
 .filledFirst {

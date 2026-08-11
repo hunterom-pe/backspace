@@ -5,6 +5,7 @@ import { AppShell } from "@/components/AppShell/AppShell";
 import { Card } from "@/components/Card/Card";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
+import { StampStrip } from "@/components/StampStrip/StampStrip";
 import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { PostComposer } from "@/components/PostsFeed/PostComposer";
@@ -53,6 +54,7 @@ export default async function FeedPage() {
         <>
           <ProfileCard profile={profile} isOwnProfile />
           <AboutCard profile={profile} isOwnProfile />
+          <StampStrip />
           <Top8Editor
             initialSlots={top8Slots}
             availableFriends={friends.map((f) => f.profile)}

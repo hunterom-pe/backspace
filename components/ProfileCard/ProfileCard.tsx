@@ -25,7 +25,9 @@ export function ProfileCard({
         {profile.banner_url ? (
           <Image src={profile.banner_url} alt="" fill className={styles.bannerImage} />
         ) : null}
+        <span className={styles.glitter} />
       </div>
+      <div className={styles.bannerDivider} aria-hidden="true" />
 
       <div className={styles.body}>
         <div className={styles.avatarWrap}>
@@ -40,6 +42,7 @@ export function ProfileCard({
           ) : (
             <div className={styles.avatarFallback}>{initials}</div>
           )}
+          <span className={styles.tapeCorner} aria-hidden="true" />
           <PresenceDot userId={profile.id} fallbackStatus={profile.status} />
         </div>
 
@@ -57,13 +60,21 @@ export function ProfileCard({
           <p className={styles.mood}>{profile.mood_status || "Set a mood or status..."}</p>
         ) : null}
 
-        <p className={styles.meta}>
-          {profile.profile_views.toLocaleString()} profile view
-          {profile.profile_views === 1 ? "" : "s"}
+        <div className={styles.meta}>
+          <span className={styles.viewCounter}>
+            <span className={styles.viewCounterNum}>
+              {profile.profile_views.toLocaleString()}
+            </span>
+            <span className={styles.viewCounterLabel}>
+              view{profile.profile_views === 1 ? "" : "s"}
+            </span>
+          </span>
           {profile.status !== "online" ? (
-            <> &middot; Last online {formatRelativeTime(profile.last_active_at)}</>
+            <span className={styles.lastOnline}>
+              Last online {formatRelativeTime(profile.last_active_at)}
+            </span>
           ) : null}
-        </p>
+        </div>
 
         {isOwnProfile ? (
           <Link href="/profile/edit" className={styles.editLink}>

@@ -45,25 +45,40 @@
 .acceptButton {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 2px solid var(--card-border);
+  border: 2.5px solid var(--card-border);
   background: var(--cobalt);
   color: var(--on-cobalt);
   font-weight: 700;
   cursor: pointer;
   font-size: 0.82rem;
+  box-shadow: 3px 3px 0px var(--card-border);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.acceptButton:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--magenta);
 }
 
 .declineButton {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 2px solid var(--card-border);
+  border: 2.5px solid var(--card-border);
   background: var(--surface);
   cursor: pointer;
   font-weight: 700;
   font-size: 0.82rem;
+  box-shadow: 3px 3px 0px var(--card-border);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .declineButton:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--magenta);
   border-color: var(--danger);
   color: var(--danger);
 }

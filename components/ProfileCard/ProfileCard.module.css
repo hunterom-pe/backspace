@@ -23,14 +23,77 @@
   box-shadow: 7px 7px 0px rgba(124, 138, 255, 0.6);
 }
 
+/* A straight linear-gradient from --cobalt to --magenta reads as a muddy
+   purple-to-pink at its midpoint: red rises while blue falls across the
+   gradient, so around the middle red and blue are nearly equal, which is
+   visually magenta/violet rather than blue. Using a bluer, less-red left
+   stop (not --cobalt itself, which is correct everywhere else it's used)
+   keeps the gradient reading as cobalt-to-magenta all the way through. */
 .banner {
   position: relative;
   height: 4.5rem;
-  background: linear-gradient(120deg, var(--cobalt), var(--magenta));
+  background: linear-gradient(120deg, #0f1f96, var(--magenta));
+}
+
+:root[data-theme="dark"] .banner {
+  background: linear-gradient(120deg, #5568ff, var(--magenta));
 }
 
 .bannerImage {
   object-fit: cover;
+}
+
+/* A faint, slow-breathing speckle field over the banner — scrapbook
+   glitter, not a light show. Three differently-sized dot tilings avoid an
+   obviously-repeating grid. */
+.glitter {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.95) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.75) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.85) 1.3px, transparent 1.8px);
+  background-size:
+    38px 38px,
+    54px 54px,
+    71px 71px;
+  background-position:
+    4px 6px,
+    22px 18px,
+    12px 30px;
+  opacity: 0.25;
+  animation: glitter-shimmer 5.5s ease-in-out infinite;
+}
+
+@keyframes glitter-shimmer {
+  0%,
+  100% {
+    opacity: 0.14;
+  }
+  50% {
+    opacity: 0.32;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitter {
+    animation: none;
+    opacity: 0.22;
+  }
+}
+
+/* The single checker/stripe flourish in the whole app — used exactly once,
+   right at the banner seam. */
+.bannerDivider {
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--ink) 0px,
+    var(--ink) 6px,
+    var(--magenta) 6px,
+    var(--magenta) 12px
+  );
 }
 
 .body {
@@ -55,6 +118,7 @@
   object-fit: cover;
   border: 4px solid var(--surface);
   display: block;
+  transform: rotate(-3deg);
 }
 
 .avatarFallback {
@@ -70,6 +134,21 @@
   font-weight: 700;
   font-size: 1.5rem;
   border: 4px solid var(--surface);
+  transform: rotate(-3deg);
+}
+
+/* A little square of "tape" pinning the photo down, like it was stuck
+   into a scrapbook. */
+.tapeCorner {
+  position: absolute;
+  top: -0.3rem;
+  left: 50%;
+  width: 1.1rem;
+  height: 0.9rem;
+  background: color-mix(in srgb, var(--cyan) 70%, transparent);
+  border: 1.5px solid var(--card-border);
+  transform: translateX(-50%) rotate(-9deg);
+  z-index: 1;
 }
 
 .identity {
@@ -101,7 +180,41 @@
 }
 
 .meta {
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* A little hit-counter widget, the classic Geocities/MySpace collectible. */
+.viewCounter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: #0a0a0f;
+  border: 1.5px solid var(--card-border);
+}
+
+.viewCounterNum {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--cyan);
+  text-shadow: 0 0 6px var(--cyan-glow);
+}
+
+.viewCounterLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(243, 245, 250, 0.6);
+}
+
+.lastOnline {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--text-secondary);

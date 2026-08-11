@@ -105,11 +105,20 @@
   gap: 0.3rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  border: 2px solid var(--card-border);
+  border: 2.5px solid var(--card-border);
   background: var(--surface);
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 600;
+  box-shadow: 3px 3px 0px var(--card-border);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.removeGif:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--magenta);
 }
 
 .composerActions {
@@ -124,16 +133,20 @@
   gap: 0.35rem;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
-  border: 2px solid var(--card-border);
+  border: 2.5px solid var(--card-border);
   background: var(--bg);
   font-weight: 700;
   font-size: 0.8rem;
   cursor: pointer;
-  transition: transform 150ms ease;
+  box-shadow: 3px 3px 0px var(--card-border);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .gifToggle:hover {
-  transform: translateY(-1px);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--magenta);
   border-color: var(--cobalt);
   color: var(--cobalt);
 }
