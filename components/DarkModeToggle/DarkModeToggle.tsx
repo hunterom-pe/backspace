@@ -11,10 +11,9 @@ function subscribe(callback: () => void) {
 }
 
 function getSnapshot(): boolean {
-  const stored = document.documentElement.getAttribute("data-theme");
-  if (stored === "dark") return true;
-  if (stored === "light") return false;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  // Light is the default; dark only applies once the user explicitly opts in
+  // via this toggle (persisted to localStorage by lib/theme-script.ts).
+  return document.documentElement.getAttribute("data-theme") === "dark";
 }
 
 function getServerSnapshot(): boolean {

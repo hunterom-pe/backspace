@@ -1,3 +1,6 @@
+export const PROFILE_COLUMNS =
+  "id, username, display_name, avatar_url, location, tagline, mood_status, about_me, interests, spotify_embed_url, status";
+
 export type Profile = {
   id: string;
   username: string;

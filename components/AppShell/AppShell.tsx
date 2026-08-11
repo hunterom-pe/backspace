@@ -3,19 +3,19 @@ import { TopNav } from "@/components/TopNav/TopNav";
 import styles from "./AppShell.module.css";
 
 export function AppShell({
-  displayName,
-  username,
+  viewerDisplayName,
+  viewerUsername,
   sidebar,
   main,
 }: {
-  displayName: string;
-  username: string;
+  viewerDisplayName: string;
+  viewerUsername: string;
   sidebar: ReactNode;
   main: ReactNode;
 }) {
   return (
     <div className={styles.page}>
-      <TopNav displayName={displayName} username={username} />
+      <TopNav displayName={viewerDisplayName} username={viewerUsername} />
       <div className={styles.body}>
         <aside className={styles.sidebar}>{sidebar}</aside>
         <main className={styles.main}>{main}</main>

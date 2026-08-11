@@ -24,24 +24,13 @@
   --away: #f1c40f;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --background: #0a0a0a;
-    --surface: #171717;
-    --foreground: #ededed;
-    --muted: #9ca3af;
-    --border: #2a2a2a;
-    --accent: #ff6699;
-    --accent-foreground: #171717;
-    --danger: #e57373;
-    --online: #2ecc71;
-    --away: #f1c40f;
-  }
-}
-
 html {
   height: 100%;
-  color-scheme: light dark;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 html,

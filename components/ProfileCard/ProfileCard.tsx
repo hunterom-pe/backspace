@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Profile } from "@/lib/types";
 import styles from "./ProfileCard.module.css";
 
@@ -7,7 +8,13 @@ const STATUS_LABEL: Record<Profile["status"], string> = {
   offline: "Offline",
 };
 
-export function ProfileCard({ profile }: { profile: Profile }) {
+export function ProfileCard({
+  profile,
+  isOwnProfile = false,
+}: {
+  profile: Profile;
+  isOwnProfile?: boolean;
+}) {
   const name = profile.display_name || profile.username;
   const initials = name.slice(0, 2).toUpperCase();
 
@@ -29,13 +36,24 @@ export function ProfileCard({ profile }: { profile: Profile }) {
       <div className={styles.identity}>
         <p className={styles.name}>{name}</p>
         <p className={styles.username}>@{profile.username}</p>
+        {profile.tagline ? <p className={styles.tagline}>{profile.tagline}</p> : null}
       </div>
 
-      <p className={styles.location}>{profile.location || "Add your location"}</p>
+      {profile.location || isOwnProfile ? (
+        <p className={styles.location}>{profile.location || "Add your location"}</p>
+      ) : null}
 
-      <p className={styles.mood}>
-        {profile.mood_status || "Set a mood or status..."}
-      </p>
+      {profile.mood_status || isOwnProfile ? (
+        <p className={styles.mood}>
+          {profile.mood_status || "Set a mood or status..."}
+        </p>
+      ) : null}
+
+      {isOwnProfile ? (
+        <Link href="/profile/edit" className={styles.editLink}>
+          Edit profile
+        </Link>
+      ) : null}
     </section>
   );
 }

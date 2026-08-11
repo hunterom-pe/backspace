@@ -7,7 +7,7 @@ import { Top8Card } from "@/components/Top8Card/Top8Card";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
-import type { Profile } from "@/lib/types";
+import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import styles from "./page.module.css";
 
 export default async function Home() {
@@ -38,9 +38,7 @@ export default async function Home() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select(
-      "id, username, display_name, avatar_url, location, tagline, mood_status, about_me, interests, spotify_embed_url, status",
-    )
+    .select(PROFILE_COLUMNS)
     .eq("id", user.id)
     .single<Profile>();
 
@@ -58,12 +56,12 @@ export default async function Home() {
 
   return (
     <AppShell
-      displayName={name}
-      username={profile.username}
+      viewerDisplayName={name}
+      viewerUsername={profile.username}
       sidebar={
         <>
-          <ProfileCard profile={profile} />
-          <AboutCard profile={profile} />
+          <ProfileCard profile={profile} isOwnProfile />
+          <AboutCard profile={profile} isOwnProfile />
           <Top8Card />
         </>
       }

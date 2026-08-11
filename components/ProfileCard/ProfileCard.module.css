@@ -74,6 +74,12 @@
   font-size: 0.85rem;
 }
 
+.tagline {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--foreground);
+}
+
 .location {
   font-size: 0.85rem;
   color: var(--muted);
@@ -88,4 +94,15 @@
   background: var(--background);
   border: 1px solid var(--border);
   width: 100%;
+}
+
+.editLink {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.editLink:hover {
+  text-decoration: underline;
 }
