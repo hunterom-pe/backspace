@@ -43,14 +43,6 @@
   aspect-ratio: 1;
   border-radius: 0.5rem;
   border: 1px dashed var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-}
-
-.plus {
-  font-size: 1.25rem;
 }
 
 @media (max-width: 420px) {

@@ -1,40 +1,31 @@
+import Link from "next/link";
 import { Card } from "@/components/Card/Card";
+import type { Profile } from "@/lib/types";
 import styles from "./Top8Card.module.css";
 
-type Top8Friend = {
-  id: string;
-  username: string;
-  displayName: string | null;
-  avatarUrl: string | null;
-};
-
-export function Top8Card({ friends = [] }: { friends?: Top8Friend[] }) {
-  const slots = Array.from({ length: 8 }, (_, i) => friends[i] ?? null);
-
+export function Top8Card({ slots }: { slots: (Profile | null)[] }) {
   return (
     <Card title="Top 8">
       <div className={styles.grid}>
         {slots.map((friend, i) =>
           friend ? (
-            <div key={friend.id} className={styles.slot}>
-              {friend.avatarUrl ? (
+            <Link key={friend.id} href={`/profile/${friend.username}`} className={styles.slot}>
+              {friend.avatar_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={friend.avatarUrl}
-                  alt={friend.displayName ?? friend.username}
+                  src={friend.avatar_url}
+                  alt=""
                   className={styles.avatar}
                 />
               ) : (
                 <div className={styles.avatarFallback}>
-                  {(friend.displayName ?? friend.username).slice(0, 2).toUpperCase()}
+                  {(friend.display_name ?? friend.username).slice(0, 2).toUpperCase()}
                 </div>
               )}
-              <span className={styles.name}>{friend.displayName ?? friend.username}</span>
-            </div>
+              <span className={styles.name}>{friend.display_name ?? friend.username}</span>
+            </Link>
           ) : (
-            <div key={i} className={styles.emptySlot}>
-              <span className={styles.plus}>+</span>
-            </div>
+            <div key={i} className={styles.emptySlot} />
           ),
         )}
       </div>

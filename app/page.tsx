@@ -3,10 +3,12 @@ import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/AppShell/AppShell";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
-import { Top8Card } from "@/components/Top8Card/Top8Card";
+import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
+import { getTop8 } from "@/lib/top8/queries";
+import { getFriendsPageData } from "@/lib/friends/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import styles from "./page.module.css";
 
@@ -53,6 +55,10 @@ export default async function Home() {
   }
 
   const name = profile.display_name || profile.username;
+  const [top8Slots, { friends }] = await Promise.all([
+    getTop8(supabase, user.id),
+    getFriendsPageData(supabase, user.id),
+  ]);
 
   return (
     <AppShell
@@ -62,7 +68,10 @@ export default async function Home() {
         <>
           <ProfileCard profile={profile} isOwnProfile />
           <AboutCard profile={profile} isOwnProfile />
-          <Top8Card />
+          <Top8Editor
+            initialSlots={top8Slots}
+            availableFriends={friends.map((f) => f.profile)}
+          />
         </>
       }
       main={

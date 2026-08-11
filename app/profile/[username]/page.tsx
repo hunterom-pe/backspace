@@ -4,10 +4,12 @@ import { AppShell } from "@/components/AppShell/AppShell";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { Top8Card } from "@/components/Top8Card/Top8Card";
+import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { FriendButton } from "@/components/FriendButton/FriendButton";
-import { getFriendshipState } from "@/lib/friends/queries";
+import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
+import { getTop8 } from "@/lib/top8/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 
 export default async function ProfilePage(props: PageProps<"/profile/[username]">) {
@@ -43,9 +45,11 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
   }
 
   const isOwnProfile = profile.id === user.id;
-  const friendshipState = isOwnProfile
-    ? null
-    : await getFriendshipState(supabase, user.id, profile.id);
+  const [friendshipState, top8Slots, friendsData] = await Promise.all([
+    isOwnProfile ? Promise.resolve(null) : getFriendshipState(supabase, user.id, profile.id),
+    getTop8(supabase, profile.id),
+    isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
+  ]);
 
   return (
     <AppShell
@@ -67,7 +71,14 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             }
           />
           <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
-          <Top8Card />
+          {isOwnProfile && friendsData ? (
+            <Top8Editor
+              initialSlots={top8Slots}
+              availableFriends={friendsData.friends.map((f) => f.profile)}
+            />
+          ) : (
+            <Top8Card slots={top8Slots} />
+          )}
         </>
       }
       main={

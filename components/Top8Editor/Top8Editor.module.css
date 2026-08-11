@@ -1,0 +1,152 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+
+.slot {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--border);
+}
+
+.filled {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.filled:active {
+  cursor: grabbing;
+}
+
+.friendLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 0.3rem;
+}
+
+.avatar,
+.avatarFallback {
+  width: 65%;
+  aspect-ratio: 1;
+  border-radius: 0.4rem;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.name {
+  font-size: 0.68rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.removeButton {
+  position: absolute;
+  top: -0.4rem;
+  right: -0.4rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--danger);
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addButton {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  color: var(--accent);
+}
+
+.picker {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 9rem;
+  max-height: 12rem;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.pickerItem {
+  text-align: left;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.35rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.pickerItem:hover {
+  background: var(--background);
+}
+
+.pickerEmpty {
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 0.35rem 0.5rem;
+  white-space: nowrap;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: var(--danger);
+}
+
+.saving {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@media (max-width: 420px) {
+  .grid {
+    gap: 0.4rem;
+  }
+}
