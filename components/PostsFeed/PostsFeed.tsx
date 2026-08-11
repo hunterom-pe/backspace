@@ -4,7 +4,6 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/Card/Card";
-import { PostComposer } from "./PostComposer";
 import { LikeButton } from "./LikeButton";
 import { deletePost, loadMoreFeedPosts } from "@/lib/posts/actions";
 import { FEED_PAGE_SIZE, type FeedPost } from "@/lib/posts/queries";
@@ -36,9 +35,7 @@ export function PostsFeed({
   }
 
   return (
-    <Card title="Posts">
-      <PostComposer />
-
+    <Card title="Feed">
       {posts.length === 0 ? (
         <EmptyState icon={<PencilIcon size={26} />}>
           No posts yet. Add friends to see their updates here.

@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/AppShell/AppShell";
+import { Card } from "@/components/Card/Card";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
+import { PostComposer } from "@/components/PostsFeed/PostComposer";
 import { PostsFeed } from "@/components/PostsFeed/PostsFeed";
+import { PencilIcon } from "@/components/icons";
 import { getTop8 } from "@/lib/top8/queries";
 import { getFriendsPageData } from "@/lib/friends/queries";
 import { getFeedPosts } from "@/lib/posts/queries";
@@ -57,7 +60,14 @@ export default async function FeedPage() {
           <SpotifyCard embedUrl={profile.spotify_embed_url} />
         </>
       }
-      main={<PostsFeed viewerId={user.id} posts={feedPosts} />}
+      main={
+        <>
+          <Card title="Post" icon={<PencilIcon size={17} aria-hidden="true" />}>
+            <PostComposer />
+          </Card>
+          <PostsFeed viewerId={user.id} posts={feedPosts} />
+        </>
+      }
     />
   );
 }
