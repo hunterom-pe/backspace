@@ -343,6 +343,18 @@ a {
   animation: card-fade-in 420ms ease backwards;
 }
 
+/* Shared by the "holographic" Top 8 ribbon style (Top8Card, Top8Editor,
+   and its preview swatch in Edit Profile) — a slow rainbow gradient pan. */
+@keyframes ribbon-holo-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

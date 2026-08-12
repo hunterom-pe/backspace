@@ -199,9 +199,10 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
               <Top8Editor
                 initialSlots={top8Slots}
                 availableFriends={friendsData.friends.map((f) => f.profile)}
+                ribbonStyle={profile.ribbon_style}
               />
             ) : (
-              <Top8Card slots={top8Slots} />
+              <Top8Card slots={top8Slots} ribbonStyle={profile.ribbon_style} />
             )}
             <SpotifyCard embedUrl={profile.spotify_embed_url} />
           </div>

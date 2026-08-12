@@ -4,7 +4,13 @@ import { Card } from "@/components/Card/Card";
 import type { Profile } from "@/lib/types";
 import styles from "./Top8Card.module.css";
 
-export function Top8Card({ slots }: { slots: (Profile | null)[] }) {
+export function Top8Card({
+  slots,
+  ribbonStyle = "classic",
+}: {
+  slots: (Profile | null)[];
+  ribbonStyle?: string;
+}) {
   return (
     <Card title="Top 8">
       <div className={styles.grid}>
@@ -17,6 +23,7 @@ export function Top8Card({ slots }: { slots: (Profile | null)[] }) {
             >
               <span
                 className={`${styles.ribbon} ${i === 0 ? styles.ribbonFirst : ""}`}
+                data-ribbon-style={ribbonStyle}
                 aria-hidden="true"
               >
                 {i + 1}

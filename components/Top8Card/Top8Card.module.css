@@ -104,6 +104,46 @@
     0 0 0 5px var(--cobalt-glow);
 }
 
+/* Ribbon finishes — an opt-in flourish picked in Edit Profile (see
+   lib/ribbonStyle.ts). "classic" is the default above and needs no rule
+   here; these override every rank's background regardless of the plain
+   magenta/cobalt fill or the #1 ribbon's own background. */
+.ribbon[data-ribbon-style="holographic"] {
+  background: linear-gradient(135deg, #ff5cf1, #5ce1ff, #baff5c, #ffcf5c, #ff5c5c, #ff5cf1);
+  background-size: 300% 300%;
+  animation: ribbon-holo-shift 4s ease infinite;
+  color: #0a0a0f;
+}
+
+.ribbon[data-ribbon-style="glitter"] {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0.6px, transparent 0.6px),
+    radial-gradient(circle at 70% 65%, rgba(255, 255, 255, 0.85) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.75) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 85% 40%, rgba(255, 255, 255, 0.7) 0.4px, transparent 0.4px),
+    linear-gradient(135deg, #ffd23f, #ff2e7e);
+  background-size:
+    5px 5px,
+    6px 6px,
+    7px 7px,
+    5px 5px,
+    100% 100%;
+  color: #0a0a0f;
+}
+
+.ribbon[data-ribbon-style="chrome"] {
+  background: linear-gradient(
+    135deg,
+    #f2f2f2 0%,
+    #a8a8a8 25%,
+    #e8e8e8 45%,
+    #7a7a7a 65%,
+    #f0f0f0 85%,
+    #b8b8b8 100%
+  );
+  color: #1a1a1a;
+}
+
 .emptySlot {
   aspect-ratio: 1;
   border-radius: 10px;

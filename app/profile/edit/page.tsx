@@ -8,6 +8,7 @@ import { TopNav } from "@/components/TopNav/TopNav";
 import { PencilIcon } from "@/components/icons";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import { PROFILE_THEMES } from "@/lib/theme";
+import { RIBBON_STYLES } from "@/lib/ribbonStyle";
 import styles from "./edit-profile.module.css";
 
 export const metadata: Metadata = { title: "Edit profile" };
@@ -126,6 +127,40 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               </div>
               <span className={styles.hint}>
                 Recolors your profile page for anyone who visits it.
+              </span>
+            </div>
+
+            <div className={styles.field}>
+              <span id="ribbon-label" className={styles.fieldLabel}>
+                Top 8 ribbon style
+              </span>
+              <div
+                className={styles.themeGrid}
+                role="radiogroup"
+                aria-labelledby="ribbon-label"
+              >
+                {RIBBON_STYLES.map((r) => (
+                  <label key={r.id} className={styles.themeSwatch}>
+                    <input
+                      type="radio"
+                      name="ribbon_style"
+                      value={r.id}
+                      defaultChecked={profile.ribbon_style === r.id}
+                      className={styles.themeRadio}
+                    />
+                    <span
+                      className={styles.ribbonPreview}
+                      data-ribbon-style={r.id}
+                      aria-hidden="true"
+                    >
+                      1
+                    </span>
+                    <span className={styles.swatchLabel}>{r.label}</span>
+                  </label>
+                ))}
+              </div>
+              <span className={styles.hint}>
+                Changes the look of your #1 Top 8 ribbon badge.
               </span>
             </div>
 

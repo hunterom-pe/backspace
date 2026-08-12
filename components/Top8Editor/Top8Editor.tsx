@@ -14,9 +14,11 @@ type Slot = Profile | null;
 export function Top8Editor({
   initialSlots,
   availableFriends,
+  ribbonStyle = "classic",
 }: {
   initialSlots: Slot[];
   availableFriends: Profile[];
+  ribbonStyle?: string;
 }) {
   const [slots, setSlots] = useState<Slot[]>(() =>
     Array.from({ length: 8 }, (_, i) => initialSlots[i] ?? null),
@@ -92,6 +94,7 @@ export function Top8Editor({
               >
                 <span
                   className={`${styles.ribbon} ${i === 0 ? styles.ribbonFirst : ""}`}
+                  data-ribbon-style={ribbonStyle}
                   aria-hidden="true"
                 >
                   {i + 1}

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { toSpotifyEmbedUrl } from "@/lib/spotify";
 import { DEFAULT_PROFILE_THEME, isProfileTheme } from "@/lib/theme";
+import { DEFAULT_RIBBON_STYLE, isRibbonStyle } from "@/lib/ribbonStyle";
 
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024;
 const MAX_BANNER_BYTES = 8 * 1024 * 1024;
@@ -43,6 +44,7 @@ export async function updateProfile(formData: FormData) {
   }
 
   const rawTheme = String(formData.get("theme") ?? "");
+  const rawRibbonStyle = String(formData.get("ribbon_style") ?? "");
 
   const updates: Record<string, string | boolean | null> = {
     display_name: String(formData.get("display_name") ?? "").trim() || null,
@@ -55,6 +57,7 @@ export async function updateProfile(formData: FormData) {
     spotify_embed_url: spotifyEmbedUrl,
     theme: isProfileTheme(rawTheme) ? rawTheme : DEFAULT_PROFILE_THEME,
     is_private: formData.get("is_private") === "on",
+    ribbon_style: isRibbonStyle(rawRibbonStyle) ? rawRibbonStyle : DEFAULT_RIBBON_STYLE,
   };
 
   const avatarFile = formData.get("avatar");
