@@ -74,18 +74,20 @@ export function GifPicker({
       ) : null}
 
       {!error && gifs.length > 0 ? (
-        <div className={styles.grid}>
-          {gifs.map((gif) => (
-            <button
-              key={gif.id}
-              type="button"
-              className={styles.gifButton}
-              onClick={() => onSelect(gif.url)}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={gif.previewUrl} alt={gif.title} className={styles.gifImage} />
-            </button>
-          ))}
+        <div className={styles.gridScroll}>
+          <div className={styles.grid}>
+            {gifs.map((gif) => (
+              <button
+                key={gif.id}
+                type="button"
+                className={styles.gifButton}
+                onClick={() => onSelect(gif.url)}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={gif.previewUrl} alt={gif.title} className={styles.gifImage} />
+              </button>
+            ))}
+          </div>
         </div>
       ) : null}
 
