@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { toSpotifyEmbedUrl } from "@/lib/spotify";
+import { DEFAULT_PROFILE_THEME, isProfileTheme } from "@/lib/theme";
 
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024;
 const MAX_BANNER_BYTES = 8 * 1024 * 1024;
@@ -41,6 +42,8 @@ export async function updateProfile(formData: FormData) {
     }
   }
 
+  const rawTheme = String(formData.get("theme") ?? "");
+
   const updates: Record<string, string | null> = {
     display_name: String(formData.get("display_name") ?? "").trim() || null,
     location: String(formData.get("location") ?? "").trim() || null,
@@ -50,6 +53,7 @@ export async function updateProfile(formData: FormData) {
     about_me: String(formData.get("about_me") ?? "").trim() || null,
     interests: String(formData.get("interests") ?? "").trim() || null,
     spotify_embed_url: spotifyEmbedUrl,
+    theme: isProfileTheme(rawTheme) ? rawTheme : DEFAULT_PROFILE_THEME,
   };
 
   const avatarFile = formData.get("avatar");

@@ -4,7 +4,7 @@
   --surface: #ffffff;
   --ink: #0a0a0f;
   --cobalt: #1b2aa6;
-  --cobalt-soft: #e7eafb;
+  --cobalt-soft: color-mix(in srgb, var(--cobalt) 12%, var(--surface));
   --magenta: #ff2e7e;
   --cyan: #00a99a;
   --text-secondary: #4b4f63;
@@ -40,7 +40,7 @@
   --surface: #15161f;
   --ink: #f3f5fa;
   --cobalt: #7c8aff;
-  --cobalt-soft: #1e2258;
+  --cobalt-soft: color-mix(in srgb, var(--cobalt) 16%, var(--surface));
   --magenta: #ff5c96;
   --cyan: #2fe6d4;
   --text-secondary: #a6abc2;
@@ -54,6 +54,103 @@
 
   --cobalt-glow: rgba(124, 138, 255, 0.3);
   --cyan-glow: rgba(47, 230, 212, 0.55);
+}
+
+/* Profile themes — an opt-in accent-color reskin a profile owner picks in
+   Edit Profile. Scoped via [data-profile-theme] on a subtree (AppShell's
+   sidebar/main), so unthemed pages fall through to the tokens above
+   untouched. Only the accent tokens change; --ink/--surface/--bg/
+   --card-border stay put so every theme keeps the same readable base and
+   the same WCAG AA margins already verified for the default palette. */
+[data-profile-theme="punk"] {
+  --cobalt: #b3123f;
+  --magenta: #ff2e7e;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(179, 18, 63, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="punk"] {
+  --cobalt: #ff5c8a;
+  --magenta: #ff5c96;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(255, 92, 138, 0.3);
+}
+
+[data-profile-theme="scene"] {
+  --cobalt: #6a1bb0;
+  --magenta: #e026c9;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(106, 27, 176, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="scene"] {
+  --cobalt: #b98cff;
+  --magenta: #ef6bea;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(185, 140, 255, 0.3);
+}
+
+[data-profile-theme="skater"] {
+  --cobalt: #a84700;
+  --magenta: #009485;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(168, 71, 0, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="skater"] {
+  --cobalt: #ffa552;
+  --magenta: #2fe6d4;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(255, 165, 82, 0.3);
+}
+
+[data-profile-theme="emo"] {
+  --cobalt: #3d1a78;
+  --magenta: #e8355f;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(61, 26, 120, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="emo"] {
+  --cobalt: #a486ff;
+  --magenta: #ff5c6e;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(164, 134, 255, 0.3);
+}
+
+[data-profile-theme="cyber"] {
+  --cobalt: #006e73;
+  --magenta: #009398;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(0, 110, 115, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="cyber"] {
+  --cobalt: #3ee8ee;
+  --magenta: #5be0e6;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(62, 232, 238, 0.3);
+}
+
+[data-profile-theme="sunset"] {
+  --cobalt: #b3400f;
+  --magenta: #e84e1f;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(179, 64, 15, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="sunset"] {
+  --cobalt: #ff9a5c;
+  --magenta: #ff7a4d;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(255, 154, 92, 0.3);
+}
+
+[data-profile-theme="glitter"] {
+  --cobalt: #8a6a00;
+  --magenta: #ff2e7e;
+  --on-cobalt: #ffffff;
+  --cobalt-glow: rgba(138, 106, 0, 0.3);
+}
+:root[data-theme="dark"] [data-profile-theme="glitter"] {
+  --cobalt: #f0c93e;
+  --magenta: #ff5c96;
+  --on-cobalt: #0a0a0f;
+  --cobalt-glow: rgba(240, 201, 62, 0.3);
 }
 
 html {

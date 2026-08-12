@@ -17,6 +17,7 @@ import { getTop8 } from "@/lib/top8/queries";
 import { getWallComments } from "@/lib/wall/queries";
 import { getRecentVisitors } from "@/lib/visits/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
+import layoutStyles from "./profile-layout.module.css";
 
 export async function generateMetadata(
   props: PageProps<"/profile/[username]">,
@@ -102,6 +103,8 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       viewerId={user.id}
       viewerDisplayName={viewer.display_name || viewer.username}
       viewerUsername={viewer.username}
+      sidebarTheme={profile.theme}
+      mainTheme={profile.theme}
       sidebar={
         <>
           <ProfileCard
@@ -123,18 +126,24 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
           {isOwnProfile && recentVisitors ? <RecentVisitors visits={recentVisitors} /> : null}
           <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
           <StampStrip />
-          {isOwnProfile && friendsData ? (
-            <Top8Editor
-              initialSlots={top8Slots}
-              availableFriends={friendsData.friends.map((f) => f.profile)}
-            />
-          ) : (
-            <Top8Card slots={top8Slots} />
-          )}
-          <SpotifyCard embedUrl={profile.spotify_embed_url} />
         </>
       }
-      main={<WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />}
+      main={
+        <>
+          <div className={layoutStyles.topRow}>
+            {isOwnProfile && friendsData ? (
+              <Top8Editor
+                initialSlots={top8Slots}
+                availableFriends={friendsData.friends.map((f) => f.profile)}
+              />
+            ) : (
+              <Top8Card slots={top8Slots} />
+            )}
+            <SpotifyCard embedUrl={profile.spotify_embed_url} />
+          </div>
+          <WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />
+        </>
+      }
     />
   );
 }

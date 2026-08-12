@@ -7,6 +7,7 @@ import { updateProfile } from "@/lib/profile/actions";
 import { TopNav } from "@/components/TopNav/TopNav";
 import { PencilIcon } from "@/components/icons";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
+import { PROFILE_THEMES } from "@/lib/theme";
 import styles from "./edit-profile.module.css";
 
 export const metadata: Metadata = { title: "Edit profile" };
@@ -94,6 +95,38 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
                 <input id="avatar" name="avatar" type="file" accept="image/*" />
                 <span className={styles.hint}>PNG or JPG, up to 5MB.</span>
               </div>
+            </div>
+
+            <div className={styles.field}>
+              <span id="theme-label" className={styles.fieldLabel}>
+                Profile theme
+              </span>
+              <div
+                className={styles.themeGrid}
+                role="radiogroup"
+                aria-labelledby="theme-label"
+              >
+                {PROFILE_THEMES.map((t) => (
+                  <label key={t.id} className={styles.themeSwatch}>
+                    <input
+                      type="radio"
+                      name="theme"
+                      value={t.id}
+                      defaultChecked={profile.theme === t.id}
+                      className={styles.themeRadio}
+                    />
+                    <span
+                      className={styles.swatchPreview}
+                      data-profile-theme={t.id}
+                      aria-hidden="true"
+                    />
+                    <span className={styles.swatchLabel}>{t.label}</span>
+                  </label>
+                ))}
+              </div>
+              <span className={styles.hint}>
+                Recolors your profile page for anyone who visits it.
+              </span>
             </div>
 
             <div className={styles.field}>

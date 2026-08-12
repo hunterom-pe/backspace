@@ -53,6 +53,7 @@ export default async function FeedPage() {
       viewerId={user.id}
       viewerDisplayName={name}
       viewerUsername={profile.username}
+      sidebarTheme={profile.theme}
       sidebar={
         <>
           <ProfileCard profile={profile} isOwnProfile />
