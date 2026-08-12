@@ -58,6 +58,7 @@ export async function updateProfile(formData: FormData) {
     theme: isProfileTheme(rawTheme) ? rawTheme : DEFAULT_PROFILE_THEME,
     is_private: formData.get("is_private") === "on",
     ribbon_style: isRibbonStyle(rawRibbonStyle) ? rawRibbonStyle : DEFAULT_RIBBON_STYLE,
+    show_under_construction: formData.get("show_under_construction") === "on",
   };
 
   const avatarFile = formData.get("avatar");

@@ -1,0 +1,53 @@
+.banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 2.5px solid var(--card-border);
+  background: #ffcc00;
+  box-shadow: var(--card-shadow);
+}
+
+.banner::before,
+.banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 7px;
+  background: repeating-linear-gradient(135deg, #1a1a1a 0 9px, #ffcc00 9px 18px);
+}
+
+.banner::before {
+  top: 0;
+}
+
+.banner::after {
+  bottom: 0;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  padding: 0.65rem 0;
+  animation: marquee-scroll 16s linear infinite;
+}
+
+.text {
+  flex-shrink: 0;
+  padding: 0 2rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

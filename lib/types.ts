@@ -2,7 +2,7 @@ import type { ProfileTheme } from "@/lib/theme";
 import type { RibbonStyle } from "@/lib/ribbonStyle";
 
 export const PROFILE_COLUMNS =
-  "id, username, display_name, avatar_url, banner_url, location, tagline, mood_status, about_me, interests, spotify_embed_url, status, last_active_at, profile_views, away_message, theme, is_private, ribbon_style";
+  "id, username, display_name, avatar_url, banner_url, location, tagline, mood_status, about_me, interests, spotify_embed_url, status, last_active_at, profile_views, away_message, theme, is_private, ribbon_style, show_under_construction";
 
 export type Profile = {
   id: string;
@@ -23,4 +23,5 @@ export type Profile = {
   theme: ProfileTheme;
   is_private: boolean;
   ribbon_style: RibbonStyle;
+  show_under_construction: boolean;
 };

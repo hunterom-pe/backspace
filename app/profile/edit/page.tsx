@@ -178,6 +178,22 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               </span>
             </div>
 
+            <div className={styles.checkboxField}>
+              <input
+                id="show_under_construction"
+                name="show_under_construction"
+                type="checkbox"
+                defaultChecked={profile.show_under_construction}
+              />
+              <label htmlFor="show_under_construction">
+                &quot;Under construction&quot; banner
+              </label>
+              <span className={styles.hint}>
+                A retro construction-tape marquee at the top of your profile. Pure nostalgia
+                bait.
+              </span>
+            </div>
+
             <div className={styles.field}>
               <label htmlFor="display_name">Display name</label>
               <input

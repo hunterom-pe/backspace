@@ -16,6 +16,7 @@ import { MessageLink } from "@/components/MessageLink/MessageLink";
 import { BlockButton } from "@/components/BlockButton/BlockButton";
 import { RecentVisitors } from "@/components/RecentVisitors/RecentVisitors";
 import { PhotosCard } from "@/components/PhotosCard/PhotosCard";
+import { UnderConstructionBanner } from "@/components/UnderConstructionBanner/UnderConstructionBanner";
 import { LockIcon, BanIcon } from "@/components/icons";
 import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
 import { getBlockState } from "@/lib/blocking/queries";
@@ -194,6 +195,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       }
       main={
         <>
+          {profile.show_under_construction ? <UnderConstructionBanner /> : null}
           <div className={layoutStyles.topRow}>
             {isOwnProfile && friendsData ? (
               <Top8Editor
