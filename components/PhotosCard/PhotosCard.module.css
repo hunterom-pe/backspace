@@ -1,0 +1,79 @@
+.uploadForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.85rem;
+  border-bottom: 2px dashed var(--card-border);
+}
+
+.uploadRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.uploadRow input[type="file"] {
+  flex: 1;
+  min-width: 0;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  gap: 0.85rem;
+}
+
+.photoWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2.5px solid var(--card-border);
+  display: block;
+}
+
+.deleteForm {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+}
+
+.deleteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--card-border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.caption {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

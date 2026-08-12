@@ -15,12 +15,14 @@ import { FriendButton } from "@/components/FriendButton/FriendButton";
 import { MessageLink } from "@/components/MessageLink/MessageLink";
 import { BlockButton } from "@/components/BlockButton/BlockButton";
 import { RecentVisitors } from "@/components/RecentVisitors/RecentVisitors";
+import { PhotosCard } from "@/components/PhotosCard/PhotosCard";
 import { LockIcon, BanIcon } from "@/components/icons";
 import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
 import { getBlockState } from "@/lib/blocking/queries";
 import { getTop8 } from "@/lib/top8/queries";
 import { getWallComments } from "@/lib/wall/queries";
 import { getRecentVisitors } from "@/lib/visits/queries";
+import { getPhotos } from "@/lib/photos/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 import layoutStyles from "./profile-layout.module.css";
 
@@ -162,11 +164,12 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
     );
   }
 
-  const [top8Slots, friendsData, wallComments, recentVisitors] = await Promise.all([
+  const [top8Slots, friendsData, wallComments, recentVisitors, photos] = await Promise.all([
     getTop8(supabase, profile.id),
     isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
     getWallComments(supabase, profile.id),
     isOwnProfile ? getRecentVisitors(supabase, profile.id) : Promise.resolve(null),
+    getPhotos(supabase, profile.id),
     isOwnProfile
       ? Promise.resolve(null)
       : supabase.rpc("record_profile_visit", { target_id: profile.id }),
@@ -200,6 +203,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             )}
             <SpotifyCard embedUrl={profile.spotify_embed_url} />
           </div>
+          <PhotosCard photos={photos} isOwnProfile={isOwnProfile} redirectTo={redirectTo} />
           <WallCard profileId={profile.id} viewerId={user.id} comments={wallComments} />
         </>
       }

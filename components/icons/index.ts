@@ -19,4 +19,5 @@ export { UsersIcon } from "./UsersIcon";
 export { LogOutIcon } from "./LogOutIcon";
 export { LockIcon } from "./LockIcon";
 export { BanIcon } from "./BanIcon";
+export { ImageIcon } from "./ImageIcon";
 export type { IconProps } from "./types";
