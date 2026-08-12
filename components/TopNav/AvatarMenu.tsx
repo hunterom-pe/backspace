@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { MailIcon } from "@/components/icons";
+import { MailIcon, UserIcon, UsersIcon, LogOutIcon } from "@/components/icons";
 import styles from "./TopNav.module.css";
 
 export function AvatarMenu({
@@ -49,6 +49,7 @@ export function AvatarMenu({
             role="menuitem"
             onClick={() => setOpen(false)}
           >
+            <UserIcon size={16} aria-hidden="true" />
             My profile
           </Link>
           <Link
@@ -57,6 +58,7 @@ export function AvatarMenu({
             role="menuitem"
             onClick={() => setOpen(false)}
           >
+            <UsersIcon size={16} aria-hidden="true" />
             Friends
           </Link>
           <Link
@@ -70,6 +72,7 @@ export function AvatarMenu({
           </Link>
           <form action={onLogout}>
             <button type="submit" className={styles.dropdownItem} role="menuitem">
+              <LogOutIcon size={16} aria-hidden="true" />
               Log out
             </button>
           </form>

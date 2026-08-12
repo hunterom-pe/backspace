@@ -129,6 +129,20 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
               </span>
             </div>
 
+            <div className={styles.checkboxField}>
+              <input
+                id="is_private"
+                name="is_private"
+                type="checkbox"
+                defaultChecked={profile.is_private}
+              />
+              <label htmlFor="is_private">Private profile</label>
+              <span className={styles.hint}>
+                Only accepted friends can see your Wall. Your name and avatar can still turn up
+                in search.
+              </span>
+            </div>
+
             <div className={styles.field}>
               <label htmlFor="display_name">Display name</label>
               <input

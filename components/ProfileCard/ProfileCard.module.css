@@ -157,9 +157,14 @@
 }
 
 .name {
+  display: block;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.05rem;
+}
+
+.name:hover {
+  color: var(--cobalt);
 }
 
 .username {

@@ -25,6 +25,11 @@ export async function sendMessage(
     return { ok: false, error: "You can't message yourself." };
   }
 
+  const { data: blocked } = await supabase.rpc("is_blocked", { a: user.id, b: recipientId });
+  if (blocked) {
+    return { ok: false, error: "You can't message this user." };
+  }
+
   const trimmed = content.trim();
   if (!trimmed && !gifUrl) {
     return { ok: false, error: "Say something or add a GIF." };

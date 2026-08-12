@@ -3,10 +3,12 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getFriendsPageData } from "@/lib/friends/queries";
 import { respondToFriendRequest, removeFriendship } from "@/lib/friends/actions";
+import { getBlockedProfiles } from "@/lib/blocking/queries";
 import { TopNav } from "@/components/TopNav/TopNav";
 import { Card } from "@/components/Card/Card";
 import { FriendListItem } from "@/components/FriendListItem/FriendListItem";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { BlockButton } from "@/components/BlockButton/BlockButton";
 import { UserPlusIcon } from "@/components/icons";
 import styles from "./friends.module.css";
 
@@ -32,7 +34,10 @@ export default async function FriendsPage() {
     redirect("/login");
   }
 
-  const { incoming, outgoing, friends } = await getFriendsPageData(supabase, user.id);
+  const [{ incoming, outgoing, friends }, blocked] = await Promise.all([
+    getFriendsPageData(supabase, user.id),
+    getBlockedProfiles(supabase, user.id),
+  ]);
 
   return (
     <div className={styles.page}>
@@ -112,6 +117,22 @@ export default async function FriendsPage() {
             </ul>
           )}
         </Card>
+
+        {blocked.length > 0 ? (
+          <Card title={`Blocked (${blocked.length})`}>
+            <ul className={styles.list}>
+              {blocked.map((profile) => (
+                <FriendListItem
+                  key={profile.id}
+                  profile={profile}
+                  action={
+                    <BlockButton targetId={profile.id} isBlocked redirectTo="/friends" />
+                  }
+                />
+              ))}
+            </ul>
+          </Card>
+        ) : null}
       </div>
     </div>
   );

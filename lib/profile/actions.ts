@@ -44,7 +44,7 @@ export async function updateProfile(formData: FormData) {
 
   const rawTheme = String(formData.get("theme") ?? "");
 
-  const updates: Record<string, string | null> = {
+  const updates: Record<string, string | boolean | null> = {
     display_name: String(formData.get("display_name") ?? "").trim() || null,
     location: String(formData.get("location") ?? "").trim() || null,
     tagline: String(formData.get("tagline") ?? "").trim() || null,
@@ -54,6 +54,7 @@ export async function updateProfile(formData: FormData) {
     interests: String(formData.get("interests") ?? "").trim() || null,
     spotify_embed_url: spotifyEmbedUrl,
     theme: isProfileTheme(rawTheme) ? rawTheme : DEFAULT_PROFILE_THEME,
+    is_private: formData.get("is_private") === "on",
   };
 
   const avatarFile = formData.get("avatar");

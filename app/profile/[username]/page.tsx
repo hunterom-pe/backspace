@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/AppShell/AppShell";
+import { Card } from "@/components/Card/Card";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { StampStrip } from "@/components/StampStrip/StampStrip";
@@ -11,8 +13,11 @@ import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { FriendButton } from "@/components/FriendButton/FriendButton";
 import { MessageLink } from "@/components/MessageLink/MessageLink";
+import { BlockButton } from "@/components/BlockButton/BlockButton";
 import { RecentVisitors } from "@/components/RecentVisitors/RecentVisitors";
+import { LockIcon, BanIcon } from "@/components/icons";
 import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
+import { getBlockState } from "@/lib/blocking/queries";
 import { getTop8 } from "@/lib/top8/queries";
 import { getWallComments } from "@/lib/wall/queries";
 import { getRecentVisitors } from "@/lib/visits/queries";
@@ -86,17 +91,86 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
   }
 
   const isOwnProfile = profile.id === user.id;
-  const [friendshipState, top8Slots, friendsData, wallComments, recentVisitors] =
-    await Promise.all([
-      isOwnProfile ? Promise.resolve(null) : getFriendshipState(supabase, user.id, profile.id),
-      getTop8(supabase, profile.id),
-      isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
-      getWallComments(supabase, profile.id),
-      isOwnProfile ? getRecentVisitors(supabase, profile.id) : Promise.resolve(null),
-      isOwnProfile
-        ? Promise.resolve(null)
-        : supabase.rpc("record_profile_visit", { target_id: profile.id }),
-    ]);
+  const redirectTo = `/profile/${profile.username}`;
+
+  const blockState = isOwnProfile
+    ? { blockedByViewer: false, blockedByTarget: false }
+    : await getBlockState(supabase, user.id, profile.id);
+
+  if (blockState.blockedByViewer || blockState.blockedByTarget) {
+    return (
+      <AppShell
+        viewerId={user.id}
+        viewerDisplayName={viewer.display_name || viewer.username}
+        viewerUsername={viewer.username}
+        sidebar={
+          <Card title={blockState.blockedByViewer ? "Blocked" : "Unavailable"}>
+            <EmptyState icon={<BanIcon size={26} aria-hidden="true" />}>
+              {blockState.blockedByViewer
+                ? "You've blocked this account. Unblock them to see their profile again."
+                : "This profile isn't available."}
+            </EmptyState>
+            {blockState.blockedByViewer ? (
+              <BlockButton targetId={profile.id} isBlocked redirectTo="/friends" />
+            ) : null}
+          </Card>
+        }
+        main={null}
+      />
+    );
+  }
+
+  const friendshipState = isOwnProfile
+    ? null
+    : await getFriendshipState(supabase, user.id, profile.id);
+  const canViewFull =
+    isOwnProfile || !profile.is_private || friendshipState?.status === "friends";
+
+  const profileAction = friendshipState ? (
+    <>
+      <FriendButton targetId={profile.id} state={friendshipState} redirectTo={redirectTo} />
+      <MessageLink username={profile.username} />
+      <BlockButton targetId={profile.id} isBlocked={false} redirectTo={redirectTo} />
+    </>
+  ) : null;
+
+  if (!canViewFull) {
+    return (
+      <AppShell
+        viewerId={user.id}
+        viewerDisplayName={viewer.display_name || viewer.username}
+        viewerUsername={viewer.username}
+        sidebarTheme={profile.theme}
+        sidebar={
+          <>
+            <ProfileCard
+              profile={profile}
+              isOwnProfile={false}
+              minimal
+              action={profileAction}
+            />
+            <Card title="Private profile">
+              <EmptyState icon={<LockIcon size={26} aria-hidden="true" />}>
+                @{profile.username} has a private profile. Add them as a friend to see their
+                Wall, Top 8, and more.
+              </EmptyState>
+            </Card>
+          </>
+        }
+        main={null}
+      />
+    );
+  }
+
+  const [top8Slots, friendsData, wallComments, recentVisitors] = await Promise.all([
+    getTop8(supabase, profile.id),
+    isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
+    getWallComments(supabase, profile.id),
+    isOwnProfile ? getRecentVisitors(supabase, profile.id) : Promise.resolve(null),
+    isOwnProfile
+      ? Promise.resolve(null)
+      : supabase.rpc("record_profile_visit", { target_id: profile.id }),
+  ]);
 
   return (
     <AppShell
@@ -107,25 +181,10 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       mainTheme={profile.theme}
       sidebar={
         <>
-          <ProfileCard
-            profile={profile}
-            isOwnProfile={isOwnProfile}
-            action={
-              friendshipState ? (
-                <>
-                  <FriendButton
-                    targetId={profile.id}
-                    state={friendshipState}
-                    redirectTo={`/profile/${profile.username}`}
-                  />
-                  <MessageLink username={profile.username} />
-                </>
-              ) : null
-            }
-          />
-          {isOwnProfile && recentVisitors ? <RecentVisitors visits={recentVisitors} /> : null}
-          <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
+          <ProfileCard profile={profile} isOwnProfile={isOwnProfile} action={profileAction} />
           <StampStrip />
+          <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
+          {isOwnProfile && recentVisitors ? <RecentVisitors visits={recentVisitors} /> : null}
         </>
       }
       main={

@@ -129,6 +129,23 @@
   color: var(--text-secondary);
 }
 
+.checkboxField {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.5rem;
+  row-gap: 0.2rem;
+}
+
+.checkboxField label {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.checkboxField .hint {
+  grid-column: 2;
+}
+
 .themeGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));

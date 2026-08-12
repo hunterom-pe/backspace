@@ -23,18 +23,23 @@ export async function searchProfiles(query: string): Promise<ProfileSearchResult
   if (!user) return [];
 
   const pattern = `%${trimmed}%`;
-  const [byUsername, byDisplayName] = await Promise.all([
+  const [byUsername, byDisplayName, blockedRows] = await Promise.all([
     supabase.from("profiles").select(SEARCH_COLUMNS).ilike("username", pattern).limit(RESULT_LIMIT),
     supabase
       .from("profiles")
       .select(SEARCH_COLUMNS)
       .ilike("display_name", pattern)
       .limit(RESULT_LIMIT),
+    supabase.from("blocked_users").select("blocked_id").eq("blocker_id", user.id),
   ]);
+
+  const blockedIds = new Set((blockedRows.data ?? []).map((r) => r.blocked_id));
 
   const merged = new Map<string, ProfileSearchResult>();
   for (const row of [...(byUsername.data ?? []), ...(byDisplayName.data ?? [])]) {
-    merged.set(row.id, row);
+    if (!blockedIds.has(row.id)) {
+      merged.set(row.id, row);
+    }
   }
 
   return Array.from(merged.values()).slice(0, RESULT_LIMIT);

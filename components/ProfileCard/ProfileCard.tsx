@@ -12,10 +12,14 @@ export function ProfileCard({
   profile,
   isOwnProfile = false,
   action,
+  minimal = false,
 }: {
   profile: Profile;
   isOwnProfile?: boolean;
   action?: ReactNode;
+  /** Hides location/mood/away-message/views — used for a private profile a
+   *  non-friend is viewing, where only the basics should show. */
+  minimal?: boolean;
 }) {
   const name = profile.display_name || profile.username;
   const initials = name.slice(0, 2).toUpperCase();
@@ -48,40 +52,46 @@ export function ProfileCard({
         </div>
 
         <div className={styles.identity}>
-          <p className={styles.name}>{name}</p>
+          <Link href={`/profile/${profile.username}`} className={styles.name}>
+            {name}
+          </Link>
           <p className={styles.username}>@{profile.username}</p>
           {profile.tagline ? <p className={styles.tagline}>{profile.tagline}</p> : null}
         </div>
 
-        {profile.location || isOwnProfile ? (
+        {!minimal && (profile.location || isOwnProfile) ? (
           <p className={styles.location}>{profile.location || "Add your location"}</p>
         ) : null}
 
-        {profile.mood_status || isOwnProfile ? (
+        {!minimal && (profile.mood_status || isOwnProfile) ? (
           <p className={styles.mood}>{profile.mood_status || "Set a mood or status..."}</p>
         ) : null}
 
-        <AwayMessage
-          userId={profile.id}
-          fallbackStatus={profile.status}
-          message={profile.away_message}
-        />
+        {!minimal ? (
+          <AwayMessage
+            userId={profile.id}
+            fallbackStatus={profile.status}
+            message={profile.away_message}
+          />
+        ) : null}
 
-        <div className={styles.meta}>
-          <span className={styles.viewCounter}>
-            <span className={styles.viewCounterNum}>
-              {profile.profile_views.toLocaleString()}
+        {!minimal ? (
+          <div className={styles.meta}>
+            <span className={styles.viewCounter}>
+              <span className={styles.viewCounterNum}>
+                {profile.profile_views.toLocaleString()}
+              </span>
+              <span className={styles.viewCounterLabel}>
+                view{profile.profile_views === 1 ? "" : "s"}
+              </span>
             </span>
-            <span className={styles.viewCounterLabel}>
-              view{profile.profile_views === 1 ? "" : "s"}
-            </span>
-          </span>
-          {profile.status !== "online" ? (
-            <span className={styles.lastOnline}>
-              Last online {formatRelativeTime(profile.last_active_at)}
-            </span>
-          ) : null}
-        </div>
+            {profile.status !== "online" ? (
+              <span className={styles.lastOnline}>
+                Last online {formatRelativeTime(profile.last_active_at)}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
 
         {isOwnProfile ? (
           <Link href="/profile/edit" className={styles.editLink}>
