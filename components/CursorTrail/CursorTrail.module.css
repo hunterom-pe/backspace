@@ -1,0 +1,42 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  background: var(--sparkle-color, var(--magenta));
+  filter: drop-shadow(0 0 3px var(--sparkle-color, var(--magenta)));
+  clip-path: polygon(
+    50% 0%,
+    65% 35%,
+    100% 50%,
+    65% 65%,
+    50% 100%,
+    35% 65%,
+    0% 50%,
+    35% 35%
+  );
+  animation: sparkle-pop 650ms ease-out forwards;
+}
+
+@keyframes sparkle-pop {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.4) rotate(var(--rotate, 0deg));
+  }
+  35% {
+    opacity: 1;
+    transform: translate(calc(var(--drift-x, 0px) * 0.4), -6px) scale(1) rotate(var(--rotate, 0deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift-x, 0px), 16px) scale(0.2) rotate(var(--rotate, 0deg));
+  }
+}

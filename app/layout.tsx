@@ -4,6 +4,7 @@ import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import { createClient } from "@/lib/supabase/server";
 import { PresenceProvider } from "@/components/Presence/PresenceProvider";
 import { Footer } from "@/components/Footer/Footer";
+import { CursorTrail } from "@/components/CursorTrail/CursorTrail";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -63,6 +64,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {user ? <PresenceProvider viewerId={user.id}>{children}</PresenceProvider> : children}
         <Footer />
+        <CursorTrail />
       </body>
     </html>
   );
