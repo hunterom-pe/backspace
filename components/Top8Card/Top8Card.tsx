@@ -33,8 +33,8 @@ export function Top8Card({
                   <Image
                     src={friend.avatar_url}
                     alt=""
-                    width={200}
-                    height={200}
+                    fill
+                    sizes="(max-width: 640px) 20vw, 180px"
                     className={styles.avatar}
                   />
                 ) : (
