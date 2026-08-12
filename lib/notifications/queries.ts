@@ -5,7 +5,8 @@ export type NotificationType =
   | "friend_accepted"
   | "wall_comment"
   | "message"
-  | "top8_added";
+  | "top8_added"
+  | "post_comment";
 
 export type AppNotification = {
   id: string;

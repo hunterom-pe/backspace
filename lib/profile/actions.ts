@@ -46,6 +46,7 @@ export async function updateProfile(formData: FormData) {
     location: String(formData.get("location") ?? "").trim() || null,
     tagline: String(formData.get("tagline") ?? "").trim() || null,
     mood_status: String(formData.get("mood_status") ?? "").trim() || null,
+    away_message: String(formData.get("away_message") ?? "").trim() || null,
     about_me: String(formData.get("about_me") ?? "").trim() || null,
     interests: String(formData.get("interests") ?? "").trim() || null,
     spotify_embed_url: spotifyEmbedUrl,

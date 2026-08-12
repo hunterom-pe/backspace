@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import type { Profile } from "@/lib/types";
 import { PresenceDot } from "@/components/Presence/PresenceDot";
+import { AwayMessage } from "@/components/Presence/AwayMessage";
 import { PencilIcon } from "@/components/icons";
 import { formatRelativeTime } from "@/lib/format-time";
 import styles from "./ProfileCard.module.css";
@@ -59,6 +60,12 @@ export function ProfileCard({
         {profile.mood_status || isOwnProfile ? (
           <p className={styles.mood}>{profile.mood_status || "Set a mood or status..."}</p>
         ) : null}
+
+        <AwayMessage
+          userId={profile.id}
+          fallbackStatus={profile.status}
+          message={profile.away_message}
+        />
 
         <div className={styles.meta}>
           <span className={styles.viewCounter}>

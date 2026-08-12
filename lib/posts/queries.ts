@@ -5,6 +5,7 @@ export type FeedPost = {
   content: string;
   gif_url: string | null;
   like_count: number;
+  comment_count: number;
   created_at: string;
   liked_by_viewer: boolean;
   author: {
@@ -35,7 +36,7 @@ export async function getFeedPosts(
 
   let query = supabase
     .from("posts")
-    .select("id, user_id, content, gif_url, like_count, created_at")
+    .select("id, user_id, content, gif_url, like_count, comment_count, created_at")
     .in("user_id", authorIds)
     .order("created_at", { ascending: false })
     .limit(FEED_PAGE_SIZE);
@@ -67,6 +68,7 @@ export async function getFeedPosts(
         content: p.content,
         gif_url: p.gif_url,
         like_count: p.like_count,
+        comment_count: p.comment_count,
         created_at: p.created_at,
         liked_by_viewer: likedPostIds.has(p.id),
         author,

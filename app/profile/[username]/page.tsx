@@ -11,9 +11,11 @@ import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { WallCard } from "@/components/WallCard/WallCard";
 import { FriendButton } from "@/components/FriendButton/FriendButton";
 import { MessageLink } from "@/components/MessageLink/MessageLink";
+import { RecentVisitors } from "@/components/RecentVisitors/RecentVisitors";
 import { getFriendshipState, getFriendsPageData } from "@/lib/friends/queries";
 import { getTop8 } from "@/lib/top8/queries";
 import { getWallComments } from "@/lib/wall/queries";
+import { getRecentVisitors } from "@/lib/visits/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 
 export async function generateMetadata(
@@ -83,15 +85,17 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
   }
 
   const isOwnProfile = profile.id === user.id;
-  const [friendshipState, top8Slots, friendsData, wallComments] = await Promise.all([
-    isOwnProfile ? Promise.resolve(null) : getFriendshipState(supabase, user.id, profile.id),
-    getTop8(supabase, profile.id),
-    isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
-    getWallComments(supabase, profile.id),
-    isOwnProfile
-      ? Promise.resolve(null)
-      : supabase.rpc("increment_profile_views", { target_id: profile.id }),
-  ]);
+  const [friendshipState, top8Slots, friendsData, wallComments, recentVisitors] =
+    await Promise.all([
+      isOwnProfile ? Promise.resolve(null) : getFriendshipState(supabase, user.id, profile.id),
+      getTop8(supabase, profile.id),
+      isOwnProfile ? getFriendsPageData(supabase, user.id) : Promise.resolve(null),
+      getWallComments(supabase, profile.id),
+      isOwnProfile ? getRecentVisitors(supabase, profile.id) : Promise.resolve(null),
+      isOwnProfile
+        ? Promise.resolve(null)
+        : supabase.rpc("record_profile_visit", { target_id: profile.id }),
+    ]);
 
   return (
     <AppShell
@@ -116,6 +120,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
               ) : null
             }
           />
+          {isOwnProfile && recentVisitors ? <RecentVisitors visits={recentVisitors} /> : null}
           <AboutCard profile={profile} isOwnProfile={isOwnProfile} />
           <StampStrip />
           {isOwnProfile && friendsData ? (

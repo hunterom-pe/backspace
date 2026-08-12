@@ -6,6 +6,7 @@ import { Card } from "@/components/Card/Card";
 import { ProfileCard } from "@/components/ProfileCard/ProfileCard";
 import { AboutCard } from "@/components/AboutCard/AboutCard";
 import { StampStrip } from "@/components/StampStrip/StampStrip";
+import { RecentVisitors } from "@/components/RecentVisitors/RecentVisitors";
 import { Top8Editor } from "@/components/Top8Editor/Top8Editor";
 import { SpotifyCard } from "@/components/SpotifyCard/SpotifyCard";
 import { PostComposer } from "@/components/PostsFeed/PostComposer";
@@ -14,6 +15,7 @@ import { PencilIcon } from "@/components/icons";
 import { getTop8 } from "@/lib/top8/queries";
 import { getFriendsPageData } from "@/lib/friends/queries";
 import { getFeedPosts } from "@/lib/posts/queries";
+import { getRecentVisitors } from "@/lib/visits/queries";
 import { PROFILE_COLUMNS, type Profile } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Feed" };
@@ -39,10 +41,11 @@ export default async function FeedPage() {
   }
 
   const name = profile.display_name || profile.username;
-  const [top8Slots, { friends }, feedPosts] = await Promise.all([
+  const [top8Slots, { friends }, feedPosts, recentVisitors] = await Promise.all([
     getTop8(supabase, user.id),
     getFriendsPageData(supabase, user.id),
     getFeedPosts(supabase, user.id),
+    getRecentVisitors(supabase, user.id),
   ]);
 
   return (
@@ -53,6 +56,7 @@ export default async function FeedPage() {
       sidebar={
         <>
           <ProfileCard profile={profile} isOwnProfile />
+          <RecentVisitors visits={recentVisitors} />
           <AboutCard profile={profile} isOwnProfile />
           <StampStrip />
           <Top8Editor

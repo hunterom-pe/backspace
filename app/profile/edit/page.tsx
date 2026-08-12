@@ -146,6 +146,22 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
             </div>
 
             <div className={styles.field}>
+              <label htmlFor="away_message">Away message</label>
+              <input
+                id="away_message"
+                name="away_message"
+                type="text"
+                placeholder="BRB, walking the dog"
+                className="field-input"
+                defaultValue={profile.away_message ?? ""}
+                maxLength={150}
+              />
+              <span className={styles.hint}>
+                Shown on your profile whenever you&apos;re away from your keyboard.
+              </span>
+            </div>
+
+            <div className={styles.field}>
               <label htmlFor="about_me">About me</label>
               <textarea
                 id="about_me"

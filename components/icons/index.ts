@@ -13,4 +13,5 @@ export { GifFrameIcon } from "./GifFrameIcon";
 export { MusicNoteIcon } from "./MusicNoteIcon";
 export { PencilIcon } from "./PencilIcon";
 export { XIcon } from "./XIcon";
+export { EyeIcon } from "./EyeIcon";
 export type { IconProps } from "./types";

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/Card/Card";
 import { LikeButton } from "./LikeButton";
+import { PostComments } from "./PostComments";
 import { deletePost, loadMoreFeedPosts } from "@/lib/posts/actions";
 import { FEED_PAGE_SIZE, type FeedPost } from "@/lib/posts/queries";
 import { formatRelativeTime } from "@/lib/format-time";
@@ -94,11 +95,18 @@ export function PostsFeed({
                     <img src={post.gif_url} alt="" className={styles.postGif} />
                   ) : null}
 
-                  <LikeButton
-                    postId={post.id}
-                    initialLiked={post.liked_by_viewer}
-                    initialCount={post.like_count}
-                  />
+                  <div className={styles.postActions}>
+                    <LikeButton
+                      postId={post.id}
+                      initialLiked={post.liked_by_viewer}
+                      initialCount={post.like_count}
+                    />
+                    <PostComments
+                      postId={post.id}
+                      viewerId={viewerId}
+                      initialCount={post.comment_count}
+                    />
+                  </div>
                 </li>
               );
             })}

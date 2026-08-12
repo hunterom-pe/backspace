@@ -55,6 +55,9 @@
 .sidebar > *:nth-child(5) {
   animation-delay: 280ms;
 }
+.sidebar > *:nth-child(n + 6) {
+  animation-delay: 350ms;
+}
 
 .main > *:nth-child(1) {
   animation-delay: 35ms;

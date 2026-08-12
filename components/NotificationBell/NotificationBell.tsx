@@ -16,6 +16,7 @@ const LABEL: Record<NotificationType, (actorName: string) => string> = {
   wall_comment: (name) => `${name} commented on your wall`,
   message: (name) => `${name} sent you a message`,
   top8_added: (name) => `${name} added you to their Top 8`,
+  post_comment: (name) => `${name} commented on your post`,
 };
 
 function linkFor(notification: AppNotification, viewerUsername: string): string {
@@ -30,6 +31,8 @@ function linkFor(notification: AppNotification, viewerUsername: string): string 
       return actorUsername ? `/messages/${actorUsername}` : "/messages";
     case "top8_added":
       return actorUsername ? `/profile/${actorUsername}` : "/feed";
+    case "post_comment":
+      return "/feed";
     default:
       return "/feed";
   }
