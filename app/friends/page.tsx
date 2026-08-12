@@ -9,6 +9,7 @@ import { Card } from "@/components/Card/Card";
 import { FriendListItem } from "@/components/FriendListItem/FriendListItem";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { BlockButton } from "@/components/BlockButton/BlockButton";
+import { ConfettiButton } from "@/components/ConfettiButton/ConfettiButton";
 import { UserPlusIcon } from "@/components/icons";
 import styles from "./friends.module.css";
 
@@ -62,9 +63,9 @@ export default async function FriendsPage() {
                         <input type="hidden" name="friendship_id" value={friendshipId} />
                         <input type="hidden" name="decision" value="accept" />
                         <input type="hidden" name="redirect_to" value="/friends" />
-                        <button type="submit" className={styles.acceptButton}>
+                        <ConfettiButton type="submit" className={styles.acceptButton}>
                           Accept
-                        </button>
+                        </ConfettiButton>
                       </form>
                       <form action={respondToFriendRequest}>
                         <input type="hidden" name="friendship_id" value={friendshipId} />

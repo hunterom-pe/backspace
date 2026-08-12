@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PresenceProvider } from "@/components/Presence/PresenceProvider";
 import { Footer } from "@/components/Footer/Footer";
 import { CursorTrail } from "@/components/CursorTrail/CursorTrail";
+import { Confetti } from "@/components/Confetti/Confetti";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -65,6 +66,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {user ? <PresenceProvider viewerId={user.id}>{children}</PresenceProvider> : children}
         <Footer />
         <CursorTrail />
+        <Confetti />
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useTransition, type FormEvent } from "react";
+import { useRef, useState, useTransition, type FormEvent } from "react";
 import { createPost } from "@/lib/posts/actions";
+import { fireConfettiFromElement } from "@/lib/confetti";
 import { GifPicker } from "@/components/GifPicker/GifPicker";
 import { GifFrameIcon, XIcon } from "@/components/icons";
 import styles from "./PostsFeed.module.css";
@@ -12,6 +13,7 @@ export function PostComposer() {
   const [showPicker, setShowPicker] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const submitRef = useRef<HTMLButtonElement>(null);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -23,6 +25,9 @@ export function PostComposer() {
         setContent("");
         setGifUrl(null);
         setError(null);
+        if (submitRef.current) {
+          fireConfettiFromElement(submitRef.current);
+        }
       } else {
         setError(result.error);
       }
@@ -63,6 +68,7 @@ export function PostComposer() {
           GIF
         </button>
         <button
+          ref={submitRef}
           type="submit"
           className="btn-primary"
           disabled={isPending || (!content.trim() && !gifUrl)}

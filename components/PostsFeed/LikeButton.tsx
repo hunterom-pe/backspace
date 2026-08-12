@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, type MouseEvent } from "react";
 import { toggleLike } from "@/lib/posts/actions";
+import { fireConfettiFromElement } from "@/lib/confetti";
 import { HeartIcon } from "@/components/icons";
 import styles from "./PostsFeed.module.css";
 
@@ -18,10 +19,13 @@ export function LikeButton({
   const [count, setCount] = useState(initialCount);
   const [isPending, startTransition] = useTransition();
 
-  function handleClick() {
+  function handleClick(event: MouseEvent<HTMLButtonElement>) {
     const nextLiked = !liked;
     setLiked(nextLiked);
     setCount((c) => c + (nextLiked ? 1 : -1));
+    if (nextLiked) {
+      fireConfettiFromElement(event.currentTarget);
+    }
 
     startTransition(async () => {
       const result = await toggleLike(postId);

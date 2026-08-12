@@ -1,4 +1,5 @@
 import { sendFriendRequest, respondToFriendRequest, removeFriendship } from "@/lib/friends/actions";
+import { ConfettiButton } from "@/components/ConfettiButton/ConfettiButton";
 import { UserPlusIcon } from "@/components/icons";
 import type { FriendshipState } from "@/lib/friends/queries";
 import styles from "./FriendButton.module.css";
@@ -46,9 +47,9 @@ export function FriendButton({
           <input type="hidden" name="friendship_id" value={state.friendshipId} />
           <input type="hidden" name="decision" value="accept" />
           <input type="hidden" name="redirect_to" value={redirectTo} />
-          <button type="submit" className="btn-primary">
+          <ConfettiButton type="submit" className="btn-primary">
             Accept
-          </button>
+          </ConfettiButton>
         </form>
         <form action={respondToFriendRequest}>
           <input type="hidden" name="friendship_id" value={state.friendshipId} />
