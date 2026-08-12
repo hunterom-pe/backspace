@@ -5,6 +5,7 @@ import { getNotifications, getUnreadCount } from "@/lib/notifications/queries";
 import { DarkModeToggle } from "@/components/DarkModeToggle/DarkModeToggle";
 import { NotificationBell } from "@/components/NotificationBell/NotificationBell";
 import { SearchBox } from "@/components/SearchBox/SearchBox";
+import { HeaderMonster } from "@/components/HeaderMonster/HeaderMonster";
 import { AvatarMenu } from "./AvatarMenu";
 import styles from "./TopNav.module.css";
 
@@ -29,6 +30,8 @@ export async function TopNav({
       <Link href="/feed" className={styles.logo}>
         backspace
       </Link>
+
+      <HeaderMonster />
 
       <SearchBox />
 

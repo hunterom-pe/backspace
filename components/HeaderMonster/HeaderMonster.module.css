@@ -1,0 +1,22 @@
+.monster {
+  width: 2.2rem;
+  height: 2.2rem;
+  flex-shrink: 0;
+  transition: transform 200ms ease;
+}
+
+.monster:hover {
+  transform: scale(1.12) rotate(-4deg);
+}
+
+@media (max-width: 640px) {
+  .monster {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .monster {
+    transition: none;
+  }
+}
