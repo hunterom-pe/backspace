@@ -67,6 +67,7 @@
   --magenta: #ff2e7e;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(179, 18, 63, 0.3);
+  --font-display: var(--font-punk);
 }
 :root[data-theme="dark"] [data-profile-theme="punk"] {
   --cobalt: #ff5c8a;
@@ -80,6 +81,7 @@
   --magenta: #e026c9;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(106, 27, 176, 0.3);
+  --font-display: var(--font-scene);
 }
 :root[data-theme="dark"] [data-profile-theme="scene"] {
   --cobalt: #b98cff;
@@ -93,6 +95,7 @@
   --magenta: #009485;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(168, 71, 0, 0.3);
+  --font-display: var(--font-skater);
 }
 :root[data-theme="dark"] [data-profile-theme="skater"] {
   --cobalt: #ffa552;
@@ -106,6 +109,7 @@
   --magenta: #e8355f;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(61, 26, 120, 0.3);
+  --font-display: var(--font-emo);
 }
 :root[data-theme="dark"] [data-profile-theme="emo"] {
   --cobalt: #a486ff;
@@ -119,6 +123,7 @@
   --magenta: #009398;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(0, 110, 115, 0.3);
+  --font-display: var(--font-mono);
 }
 :root[data-theme="dark"] [data-profile-theme="cyber"] {
   --cobalt: #3ee8ee;
@@ -132,6 +137,7 @@
   --magenta: #e84e1f;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(179, 64, 15, 0.3);
+  --font-display: var(--font-sunset);
 }
 :root[data-theme="dark"] [data-profile-theme="sunset"] {
   --cobalt: #ff9a5c;
@@ -145,6 +151,7 @@
   --magenta: #ff2e7e;
   --on-cobalt: #ffffff;
   --cobalt-glow: rgba(138, 106, 0, 0.3);
+  --font-display: var(--font-glitter);
 }
 :root[data-theme="dark"] [data-profile-theme="glitter"] {
   --cobalt: #f0c93e;

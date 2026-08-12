@@ -107,7 +107,11 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
                 aria-labelledby="theme-label"
               >
                 {PROFILE_THEMES.map((t) => (
-                  <label key={t.id} className={styles.themeSwatch}>
+                  <label
+                    key={t.id}
+                    className={styles.themeSwatch}
+                    data-profile-theme={t.id}
+                  >
                     <input
                       type="radio"
                       name="theme"
@@ -115,11 +119,7 @@ export default async function EditProfilePage(props: PageProps<"/profile/edit">)
                       defaultChecked={profile.theme === t.id}
                       className={styles.themeRadio}
                     />
-                    <span
-                      className={styles.swatchPreview}
-                      data-profile-theme={t.id}
-                      aria-hidden="true"
-                    />
+                    <span className={styles.swatchPreview} aria-hidden="true" />
                     <span className={styles.swatchLabel}>{t.label}</span>
                   </label>
                 ))}

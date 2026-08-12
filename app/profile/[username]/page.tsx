@@ -143,6 +143,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
         viewerDisplayName={viewer.display_name || viewer.username}
         viewerUsername={viewer.username}
         sidebarTheme={profile.theme}
+        pageTheme={profile.theme}
         sidebar={
           <>
             <ProfileCard
@@ -182,6 +183,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       viewerUsername={viewer.username}
       sidebarTheme={profile.theme}
       mainTheme={profile.theme}
+      pageTheme={profile.theme}
       sidebar={
         <>
           <ProfileCard profile={profile} isOwnProfile={isOwnProfile} action={profileAction} />

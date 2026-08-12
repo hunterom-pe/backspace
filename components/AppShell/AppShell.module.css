@@ -16,6 +16,80 @@
   align-items: start;
 }
 
+/* Profile theme background patterns — a subtle motif behind the cards,
+   mostly visible in the gutters between them and the page margins. Kept
+   low-opacity (mixed toward transparent) so it never fights card content;
+   built from each theme's own accent tokens so it follows light/dark mode
+   automatically. Classic has no pattern — it's the unthemed baseline. */
+.body[data-profile-theme="punk"] {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--magenta) 10%, transparent) 0px,
+    color-mix(in srgb, var(--magenta) 10%, transparent) 3px,
+    transparent 3px,
+    transparent 16px
+  );
+}
+
+.body[data-profile-theme="scene"] {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--magenta) 22%, transparent) 1.6px,
+    transparent 1.6px
+  );
+  background-size: 22px 22px;
+}
+
+.body[data-profile-theme="skater"] {
+  background-image:
+    linear-gradient(45deg, color-mix(in srgb, var(--cobalt) 8%, transparent) 25%, transparent 25%),
+    linear-gradient(-45deg, color-mix(in srgb, var(--cobalt) 8%, transparent) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, color-mix(in srgb, var(--cobalt) 8%, transparent) 75%),
+    linear-gradient(-45deg, transparent 75%, color-mix(in srgb, var(--cobalt) 8%, transparent) 75%);
+  background-size: 24px 24px;
+  background-position:
+    0 0,
+    0 12px,
+    12px -12px,
+    -12px 0;
+}
+
+.body[data-profile-theme="emo"] {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--cobalt) 18%, transparent) 1.4px,
+    transparent 1.4px
+  );
+  background-size: 30px 30px;
+}
+
+.body[data-profile-theme="cyber"] {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--cobalt) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--cobalt) 10%, transparent) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.body[data-profile-theme="sunset"] {
+  background-image: repeating-linear-gradient(
+    115deg,
+    color-mix(in srgb, var(--magenta) 9%, transparent) 0px,
+    color-mix(in srgb, var(--magenta) 9%, transparent) 4px,
+    transparent 4px,
+    transparent 20px
+  );
+}
+
+.body[data-profile-theme="glitter"] {
+  background-image:
+    radial-gradient(color-mix(in srgb, var(--cobalt) 20%, transparent) 1.4px, transparent 1.4px),
+    radial-gradient(color-mix(in srgb, var(--magenta) 16%, transparent) 1.1px, transparent 1.1px);
+  background-size:
+    20px 20px,
+    20px 20px;
+  background-position:
+    0 0,
+    10px 10px;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
