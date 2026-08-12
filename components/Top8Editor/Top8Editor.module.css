@@ -9,14 +9,13 @@
   position: relative;
   aspect-ratio: 1;
   border-radius: 10px;
-  border: 2px dashed var(--card-border);
-  opacity: 0.55;
+  border: 2px dashed color-mix(in srgb, var(--card-border) 55%, transparent);
   min-width: 0;
-  transition: opacity 150ms ease;
+  transition: border-color 150ms ease;
 }
 
 .slot:has(.filled) {
-  opacity: 1;
+  border-color: var(--card-border);
 }
 
 .filled {
@@ -168,10 +167,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.55;
+  transition: opacity 150ms ease;
 }
 
 .addButton:hover {
   color: var(--cobalt);
+  opacity: 1;
 }
 
 .picker {
