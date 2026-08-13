@@ -4,6 +4,7 @@ import { Card } from "@/components/Card/Card";
 import { WallComposer } from "./WallComposer";
 import { deleteWallComment } from "@/lib/wall/actions";
 import { formatRelativeTime } from "@/lib/format-time";
+import { ConfirmDeleteButton } from "@/components/ConfirmDeleteButton/ConfirmDeleteButton";
 import { MessageBubbleIcon, XIcon } from "@/components/icons";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import type { WallComment } from "@/lib/wall/queries";
@@ -62,16 +63,15 @@ export function WallCard({
                   </Link>
 
                   {canDelete ? (
-                    <form action={deleteWallComment}>
-                      <input type="hidden" name="comment_id" value={comment.id} />
-                      <button
-                        type="submit"
-                        className={styles.deleteButton}
-                        aria-label="Delete comment"
-                      >
-                        <XIcon size={13} aria-hidden="true" />
-                      </button>
-                    </form>
+                    <ConfirmDeleteButton
+                      action={deleteWallComment}
+                      hiddenFields={{ comment_id: comment.id }}
+                      triggerLabel="Delete comment"
+                      triggerClassName={styles.deleteButton}
+                      message="Delete this post from the wall? This can't be undone."
+                    >
+                      <XIcon size={13} aria-hidden="true" />
+                    </ConfirmDeleteButton>
                   ) : null}
                 </div>
 

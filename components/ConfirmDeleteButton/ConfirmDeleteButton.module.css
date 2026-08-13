@@ -1,0 +1,70 @@
+.wrap {
+  position: relative;
+}
+
+.popover {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 20;
+  width: 13rem;
+  background: var(--surface);
+  color: var(--ink);
+  border: 3px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.message {
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.cancelButton {
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 2px solid var(--card-border);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.cancelButton:hover {
+  border-color: var(--cobalt);
+  color: var(--cobalt);
+}
+
+/* White text clears AA against light mode's dark-red --danger (6.25:1) but
+   dark mode's --danger is a bright coral where white only reaches 2.79:1 —
+   needs dark text there instead, same asymmetry --on-cobalt already
+   handles for the cobalt/magenta tokens. */
+.confirmButton {
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 2px solid var(--danger);
+  background: var(--danger);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+:root[data-theme="dark"] .confirmButton {
+  color: #0a0a0f;
+}
+
+.confirmButton:hover {
+  opacity: 0.85;
+}
